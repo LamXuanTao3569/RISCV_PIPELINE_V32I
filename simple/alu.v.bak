@@ -1,0 +1,12 @@
+module alu (
+    input  logic [31:0] a, b,
+    input  logic [2:0]  control,
+    output logic [31:0] result
+);
+    always_comb begin
+        case (control)
+            3'b000: result = a + b; // ADD
+            default: result = a + b; // Mặc định là ADD
+        endcase
+    end
+endmodule

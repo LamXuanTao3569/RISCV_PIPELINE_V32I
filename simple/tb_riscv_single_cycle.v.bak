@@ -1,0 +1,33 @@
+module tb_riscv_single_cycle;
+    logic        clk, reset;
+    logic [31:0] pc, alu_result;
+
+    // Khởi tạo mô-đun
+    riscv_single_cycle dut (
+        .clk(clk),
+        .reset(reset),
+        .pc(pc),
+        .alu_result(alu_result)
+    );
+
+    // Tạo xung đồng hồ
+    initial begin
+        clk = 0;
+        forever #5 clk = ~clk; // Chu kỳ 10ns
+    end
+
+    // Reset và chạy
+    initial begin
+        reset = 1;
+        #10 reset = 0;
+
+        // Chờ 3 chu kỳ để thực thi 3 lệnh
+        #30 $display("x3 = %d", dut.rf.regs[3]); // Kiểm tra thanh ghi x3
+        $finish;
+    end
+
+    // Theo dõi kết quả
+    initial begin
+        $monitor("Time=%0t, PC=%h, ALU Result=%h", $time, pc, alu_result);
+    end
+endmodule

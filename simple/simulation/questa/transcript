@@ -1,0 +1,135 @@
+# //  Questa Intel Starter FPGA Edition-64
+# //  Version 2024.3 linux_x86_64 Sep 10 2024
+# //
+# // Unpublished work. Copyright 2024 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# do riscv_single_run_msim_rtl_verilog.do
+# 
+# XÛa th∞ vi«n ci nøu t”n t°i
+# if {[file exists rtl_work]} {
+#     vdel -lib rtl_work -all
+# }
+# 
+# T°o th∞ vi«n m€i
+# vlib rtl_work
+# vmap work rtl_work
+# Questa Intel Starter FPGA Edition-64 vmap 2024.3 Lib Mapping Utility 2024.09 Sep 10 2024
+# vmap work rtl_work 
+# Modifying modelsim.ini
+# 
+# BiÍn dÀch t•t c£ file Verilog
+# vlog -vlog01compat -work work +incdir+/home/taolam/risc-v_project/simple {/home/taolam/risc-v_project/simple/regfile.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 16:58:42 on Apr 01,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/risc-v_project/simple" /home/taolam/risc-v_project/simple/regfile.v 
+# -- Compiling module regfile
+# 
+# Top level modules:
+# 	regfile
+# End time: 16:58:42 on Apr 01,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/risc-v_project/simple {/home/taolam/risc-v_project/simple/alu.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 16:58:42 on Apr 01,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/risc-v_project/simple" /home/taolam/risc-v_project/simple/alu.v 
+# -- Compiling module alu
+# 
+# Top level modules:
+# 	alu
+# End time: 16:58:42 on Apr 01,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/risc-v_project/simple {/home/taolam/risc-v_project/simple/riscv_single_cycle.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 16:58:42 on Apr 01,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/risc-v_project/simple" /home/taolam/risc-v_project/simple/riscv_single_cycle.v 
+# -- Compiling module riscv_single
+# 
+# Top level modules:
+# 	riscv_single
+# End time: 16:58:42 on Apr 01,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/risc-v_project/simple {/home/taolam/risc-v_project/simple/imem.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 16:58:42 on Apr 01,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/risc-v_project/simple" /home/taolam/risc-v_project/simple/imem.v 
+# -- Compiling module imem
+# 
+# Top level modules:
+# 	imem
+# End time: 16:58:42 on Apr 01,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/risc-v_project/simple {/home/taolam/risc-v_project/simple/control_unit.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 16:58:42 on Apr 01,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/risc-v_project/simple" /home/taolam/risc-v_project/simple/control_unit.v 
+# -- Compiling module control_unit
+# 
+# Top level modules:
+# 	control_unit
+# End time: 16:58:42 on Apr 01,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/risc-v_project/simple {/home/taolam/risc-v_project/simple/dmem.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 16:58:42 on Apr 01,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/risc-v_project/simple" /home/taolam/risc-v_project/simple/dmem.v 
+# -- Compiling module dmem
+# 
+# Top level modules:
+# 	dmem
+# End time: 16:58:42 on Apr 01,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/risc-v_project/simple {/home/taolam/risc-v_project/simple/tb_riscv_single_cycle.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 16:58:42 on Apr 01,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/risc-v_project/simple" /home/taolam/risc-v_project/simple/tb_riscv_single_cycle.v 
+# -- Compiling module tb_riscv_single_cycle
+# 
+# Top level modules:
+# 	tb_riscv_single_cycle
+# End time: 16:58:42 on Apr 01,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# Ch°y mÙ phœng v€i GUI v‡ testbench ˙ng
+# vsim -gui -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs="+acc" work.tb_riscv_single_cycle
+# vsim -gui -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs=""+acc"" work.tb_riscv_single_cycle 
+# Start time: 16:58:42 on Apr 01,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.tb_riscv_single_cycle(fast)
+# Loading work.riscv_single(fast)
+# Loading work.imem(fast)
+# Loading work.control_unit(fast)
+# Loading work.regfile(fast)
+# Loading work.alu(fast)
+# Loading work.dmem(fast)
+# 
+# ThÍm tÌn hi«u v‡ ch°y
+# add wave -r /*
+# run -all
+# Time=0, PC=00000000, ALU Result=00000005
+# Time=15, PC=00000004, ALU Result=00000007
+# Time=25, PC=00000008, ALU Result=0000000c
+# Time=35, PC=0000000c, ALU Result=xxxxxxxx
+# Time=45, PC=00000010, ALU Result=xxxxxxxx
+# Time=55, PC=00000014, ALU Result=xxxxxxxx
+# x3 =         12
+# ** Note: $finish    : /home/taolam/risc-v_project/simple/tb_riscv_single_cycle.v(16)
+#    Time: 60 ps  Iteration: 0  Instance: /tb_riscv_single_cycle
+# 1
+# Break in Module tb_riscv_single_cycle at /home/taolam/risc-v_project/simple/tb_riscv_single_cycle.v line 16
+add wave -position 9  sim:/tb_riscv_single_cycle/alu_result
+add wave -position 7  sim:/tb_riscv_single_cycle/pc
+add wave -position 7  sim:/tb_riscv_single_cycle/reset
+add wave -position 8  sim:/tb_riscv_single_cycle/clk
+# End time: 17:01:48 on Apr 01,2025, Elapsed time: 0:03:06
+# Errors: 0, Warnings: 1

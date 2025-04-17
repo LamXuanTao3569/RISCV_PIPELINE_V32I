@@ -1,0 +1,94 @@
+module riscv_single_cycle (
+    input  logic        clk,
+    input  logic        reset,
+    output logic [31:0] pc,
+    output logic [31:0] alu_result
+);
+
+    // Các tín hiệu nội bộ
+    logic [31:0] instr;         // Lệnh từ imem
+    logic [31:0] reg_data1, reg_data2; // Dữ liệu từ regfile
+    logic [31:0] alu_out;       // Kết quả ALU
+    logic [31:0] imm;           // Giá trị tức thì (immediate)
+    logic [31:0] write_data;    // Dữ liệu ghi vào regfile
+    logic [31:0] mem_data;      // Dữ liệu từ dmem
+    logic [4:0]  rs1, rs2, rd;  // Địa chỉ thanh ghi
+    logic [6:0]  opcode;        // Opcode
+    logic [2:0]  funct3;        // Funct3
+    logic        reg_write;     // Tín hiệu ghi thanh ghi
+    logic        mem_write;     // Tín hiệu ghi bộ nhớ
+    logic        alu_src;       // Chọn nguồn ALU (reg hay imm)
+    logic [1:0]  result_src;    // Chọn kết quả (ALU, mem, PC+4)
+    logic [2:0]  alu_control;   // Điều khiển ALU
+
+    // Program Counter
+    logic [31:0] pc_next;
+    always_ff @(posedge clk or posedge reset) begin
+        if (reset) pc <= 0;
+        else       pc <= pc_next;
+    end
+    assign pc_next = pc + 4; // Tạm thời tăng PC + 4 (không hỗ trợ nhánh)
+
+    // Instruction Memory
+    imem imem (
+        .addr(pc),
+        .instr(instr)
+    );
+
+    // Phân tích lệnh
+    assign opcode = instr[6:0];
+    assign rs1    = instr[19:15];
+    assign rs2    = instr[24:20];
+    assign rd     = instr[11:7];
+    assign funct3 = instr[14:12];
+    assign imm    = {{20{instr[31]}}, instr[31:20]}; // Immediate kiểu I
+
+    // Control Unit
+    control_unit cu (
+        .opcode(opcode),
+        .funct3(funct3),
+        .reg_write(reg_write),
+        .mem_write(mem_write),
+        .alu_src(alu_src),
+        .result_src(result_src),
+        .alu_control(alu_control)
+    );
+
+    // Register File
+    regfile rf (
+        .clk(clk),
+        .we(reg_write),
+        .rs1(rs1),
+        .rs2(rs2),
+        .rd(rd),
+        .write_data(write_data),
+        .read_data1(reg_data1),
+        .read_data2(reg_data2)
+    );
+
+    // ALU
+    logic [31:0] alu_in2;
+    assign alu_in2 = alu_src ? imm : reg_data2;
+    alu alu (
+        .a(reg_data1),
+        .b(alu_in2),
+        .control(alu_control),
+        .result(alu_out)
+    );
+
+    // Data Memory
+    dmem dmem (
+        .clk(clk),
+        .we(mem_write),
+        .addr(alu_out),
+        .write_data(reg_data2),
+        .read_data(mem_data)
+    );
+
+    // Chọn kết quả ghi vào thanh ghi
+    assign write_data = (result_src == 2'b00) ? alu_out :
+                       (result_src == 2'b01) ? mem_data : pc + 4;
+
+    assign alu_result = alu_out;
+
+endmodule

@@ -1,0 +1,15 @@
+module imem (
+    input  logic [31:0] addr,
+    output logic [31:0] instr
+);
+    logic [31:0] mem [0:31]; // Bộ nhớ 32 từ
+
+    initial begin
+        // Chương trình Assembly được biên dịch thành mã máy
+        mem[0] = 32'h00500093; // addi x1, x0, 5
+        mem[1] = 32'h00700113; // addi x2, x0, 7
+        mem[2] = 32'h002081b3; // add  x3, x1, x2
+    end
+
+    assign instr = mem[addr[31:2]]; // Bỏ qua 2 bit thấp (word-aligned)
+endmodule

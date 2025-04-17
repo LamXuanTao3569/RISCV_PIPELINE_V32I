@@ -1,0 +1,35 @@
+module control_unit (
+    input  logic [6:0] opcode,
+    input  logic [2:0] funct3,
+    output logic       reg_write,
+    output logic       mem_write,
+    output logic       alu_src,
+    output logic [1:0] result_src,
+    output logic [2:0] alu_control
+);
+    always_comb begin
+        case (opcode)
+            7'b0010011: begin // I-type (addi)
+                reg_write   = 1;
+                mem_write   = 0;
+                alu_src     = 1;
+                result_src  = 2'b00;
+                alu_control = 3'b000; // ADD
+            end
+            7'b0110011: begin // R-type (add)
+                reg_write   = 1;
+                mem_write   = 0;
+                alu_src     = 0;
+                result_src  = 2'b00;
+                alu_control = 3'b000; // ADD
+            end
+            default: begin
+                reg_write   = 0;
+                mem_write   = 0;
+                alu_src     = 0;
+                result_src  = 2'b00;
+                alu_control = 3'b000;
+            end
+        endcase
+    end
+endmodule

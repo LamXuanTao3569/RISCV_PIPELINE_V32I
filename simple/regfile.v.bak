@@ -1,0 +1,21 @@
+module regfile (
+    input  logic        clk,
+    input  logic        we,
+    input  logic [4:0]  rs1, rs2, rd,
+    input  logic [31:0] write_data,
+    output logic [31:0] read_data1, read_data2
+);
+    logic [31:0] regs [0:31];
+
+    // Thanh ghi x0 luôn bằng 0
+    initial regs[0] = 32'h0;
+
+    // Ghi đồng bộ
+    always_ff @(posedge clk) begin
+        if (we && rd != 0) regs[rd] <= write_data;
+    end
+
+    // Đọc bất đồng bộ
+    assign read_data1 = (rs1 == 0) ? 32'h0 : regs[rs1];
+    assign read_data2 = (rs2 == 0) ? 32'h0 : regs[rs2];
+endmodule
