@@ -1,0 +1,22 @@
+module Instruction_Memory(rst, A, RD);
+    input rst;
+    input [31:0] A;
+    output [31:0] RD;
+
+    reg [31:0] mem [1023:0];
+  
+    // Đổi logic reset thành active-high: trả về 0 khi rst=1
+    assign RD = (rst == 1'b1) ? {32{1'b0}} : mem[A[31:2]];
+
+    initial begin
+        mem[0] = 32'h00500093; // addi x1, x0, 5
+        mem[1] = 32'h001080b3; // add x1, x1, x1
+        mem[2] = 32'h00108133; // add x2, x1, x1
+        mem[3] = 32'h001101b3; // add x3, x2, x1
+        mem[4] = 32'h00810213; // addi x4, x2, 8
+        mem[5] = 32'h00022583; // lw x11, 0(x4)
+        mem[6] = 32'h00b22223; // sw x11, 4(x4)
+        mem[7] = 32'hfe310fe3; // beq x2, x3, -4 (PC-4)
+        mem[8] = 32'h008000ef; // jal x1, 8
+    end
+endmodule

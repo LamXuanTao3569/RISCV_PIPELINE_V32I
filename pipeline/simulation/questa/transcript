@@ -1,0 +1,269 @@
+# //  Questa Intel Starter FPGA Edition-64
+# //  Version 2024.3 linux_x86_64 Sep 10 2024
+# //
+# // Unpublished work. Copyright 2024 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# do Pipeline_Top_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Questa Intel Starter FPGA Edition-64 vmap 2024.3 Lib Mapping Utility 2024.09 Sep 10 2024
+# vmap work rtl_work 
+# Modifying modelsim.ini
+# 
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Register_File.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:43 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Register_File.v 
+# -- Compiling module Register_File
+# 
+# Top level modules:
+# 	Register_File
+# End time: 06:20:43 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/PC.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:43 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/PC.v 
+# -- Compiling module PC_Module
+# 
+# Top level modules:
+# 	PC_Module
+# End time: 06:20:43 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Sign_Extend.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:43 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Sign_Extend.v 
+# -- Compiling module Sign_Extend
+# 
+# Top level modules:
+# 	Sign_Extend
+# End time: 06:20:43 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Writeback_Cycle.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:43 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Writeback_Cycle.v 
+# -- Compiling module writeback_cycle
+# 
+# Top level modules:
+# 	writeback_cycle
+# End time: 06:20:43 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Decode_Cyle.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:43 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Decode_Cyle.v 
+# -- Compiling module decode_cycle
+# 
+# Top level modules:
+# 	decode_cycle
+# End time: 06:20:43 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/PC_Adder.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:43 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/PC_Adder.v 
+# -- Compiling module PC_Adder
+# 
+# Top level modules:
+# 	PC_Adder
+# End time: 06:20:43 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Control_Unit_Top.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:43 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Control_Unit_Top.v 
+# -- Compiling module Control_Unit_Top
+# 
+# Top level modules:
+# 	Control_Unit_Top
+# End time: 06:20:43 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Hazard_unit.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:43 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Hazard_unit.v 
+# -- Compiling module hazard_unit
+# 
+# Top level modules:
+# 	hazard_unit
+# End time: 06:20:44 on Apr 25,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Execute_Cycle.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:44 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Execute_Cycle.v 
+# -- Compiling module execute_cycle
+# 
+# Top level modules:
+# 	execute_cycle
+# End time: 06:20:44 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/ALU.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:44 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/ALU.v 
+# -- Compiling module ALU
+# 
+# Top level modules:
+# 	ALU
+# End time: 06:20:44 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/ALU_Decoder.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:44 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/ALU_Decoder.v 
+# -- Compiling module ALU_Decoder
+# 
+# Top level modules:
+# 	ALU_Decoder
+# End time: 06:20:44 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Data_Memory.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:44 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Data_Memory.v 
+# -- Compiling module Data_Memory
+# 
+# Top level modules:
+# 	Data_Memory
+# End time: 06:20:44 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Instruction_Memory.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:44 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Instruction_Memory.v 
+# -- Compiling module Instruction_Memory
+# 
+# Top level modules:
+# 	Instruction_Memory
+# End time: 06:20:44 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Main_Decoder.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:44 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Main_Decoder.v 
+# -- Compiling module Main_Decoder
+# 
+# Top level modules:
+# 	Main_Decoder
+# End time: 06:20:44 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Mux.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:44 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Mux.v 
+# -- Compiling module Mux
+# -- Compiling module Mux_3_by_1
+# 
+# Top level modules:
+# 	Mux
+# 	Mux_3_by_1
+# End time: 06:20:44 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Memory_Cycle.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:44 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Memory_Cycle.v 
+# -- Compiling module memory_cycle
+# 
+# Top level modules:
+# 	memory_cycle
+# End time: 06:20:44 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Fetch_Cycle.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:44 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Fetch_Cycle.v 
+# -- Compiling module fetch_cycle
+# 
+# Top level modules:
+# 	fetch_cycle
+# End time: 06:20:44 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Pipeline_Top.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:44 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Pipeline_Top.v 
+# -- Compiling module Pipeline_top
+# 
+# Top level modules:
+# 	Pipeline_top
+# End time: 06:20:44 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/pipeline_tb.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 06:20:44 on Apr 25,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/pipeline_tb.v 
+# -- Compiling module tb
+# 
+# Top level modules:
+# 	tb
+# End time: 06:20:44 on Apr 25,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs="+acc"  tb
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs=""+acc"" tb 
+# Start time: 06:20:44 on Apr 25,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
+# ** Warning: /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Pipeline_Top.v(62): (vopt-2685) [TFMPC] - Too few port connections for 'Execute'.  Expected 30, found 28.
+# ** Warning: /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Pipeline_Top.v(62): (vopt-2718) [TFMPC] - Missing connection for port 'RS2_E'.
+# ** Warning: /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Pipeline_Top.v(62): (vopt-2718) [TFMPC] - Missing connection for port 'RS1_E'.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=4.
+# Loading work.tb(fast)
+# Loading work.Pipeline_top(fast)
+# Loading work.fetch_cycle(fast)
+# Loading work.Mux(fast)
+# Loading work.PC_Module(fast)
+# Loading work.Instruction_Memory(fast)
+# Loading work.PC_Adder(fast)
+# Loading work.decode_cycle(fast)
+# Loading work.Control_Unit_Top(fast)
+# Loading work.Main_Decoder(fast)
+# Loading work.ALU_Decoder(fast)
+# Loading work.Register_File(fast)
+# Loading work.Sign_Extend(fast)
+# Loading work.execute_cycle(fast)
+# Loading work.Mux_3_by_1(fast)
+# Loading work.ALU(fast)
+# Loading work.memory_cycle(fast)
+# Loading work.Data_Memory(fast)
+# Loading work.writeback_cycle(fast)
+# Loading work.hazard_unit(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (32) does not match connection size (1) for port 'c'. The port definition is at: /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/PC_Adder.v(1).
+#    Time: 0 ps  Iteration: 0  Instance: /tb/dut/Execute/PC_Plus_4 File: /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Execute_Cycle.v Line: 72
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardAE'. The port definition is at: /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Hazard_unit.v(1).
+#    Time: 0 ps  Iteration: 0  Instance: /tb/dut/Forwarding_block File: /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Pipeline_Top.v Line: 124
+# ** Warning: (vsim-3015) [PCDPC] - Port size (2) does not match connection size (1) for port 'ForwardBE'. The port definition is at: /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Hazard_unit.v(1).
+#    Time: 0 ps  Iteration: 0  Instance: /tb/dut/Forwarding_block File: /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Pipeline_Top.v Line: 124
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# Time=0 | Fetch: InstrD=xxxxxxxx (xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx) PCD=xxxxxxxx | Decode: RegWriteE=x ALUSrcE=x MemWriteE=x ResultSrcE=xx BranchE=x Jump=z RD1_E=xxxxxxxx RD2_E=xxxxxxxx Imm_Ext_E=xxxxxxxx | Execute: ALU_ResultE=xxxxxxxx PCSrcE=x | Memory: ALU_ResultM=xxxxxxxx WriteDataM=xxxxxxxx ReadDataW=xxxxxxxx | Writeback: ResultW=xxxxxxxx x1=xxxxxxxx x2=xxxxxxxx x3=xxxxxxxx
+# Time=200 | Fetch: InstrD=00000000 (00000000000000000000000000000000) PCD=00000000 | Decode: RegWriteE=0 ALUSrcE=0 MemWriteE=0 ResultSrcE=00 BranchE=0 Jump=z RD1_E=00000000 RD2_E=00000000 Imm_Ext_E=00000000 | Execute: ALU_ResultE=00000000 PCSrcE=x | Memory: ALU_ResultM=00000000 WriteDataM=00000000 ReadDataW=00000000 | Writeback: ResultW=00000000 x1=xxxxxxxx x2=xxxxxxxx x3=xxxxxxxx
+# Test FAIL: x1=xxxxxxxx (xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx), x2=xxxxxxxx (xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx), x3=xxxxxxxx (xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)
+# ** Note: $finish    : /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/pipeline_tb.v(58)
+#    Time: 1200 ps  Iteration: 0  Instance: /tb
+# 1
+# Break in Module tb at /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/pipeline_tb.v line 58
+# End time: 06:23:19 on Apr 25,2025, Elapsed time: 0:02:35
+# Errors: 0, Warnings: 7
