@@ -1,0 +1,13 @@
+BEGIN 1:Pipeline_top:fast:work
+    ResultW :  1:tb:fast:work
+    PCSrcE :  1:tb:fast:work
+    InstrD :  1:tb:fast:work
+    RD2_E :  1:tb:fast:work
+    ReadDataW :  1:tb:fast:work
+    ForwardB_E :  1:tb:fast:work
+    RegWriteE :  1:tb:fast:work
+    ForwardA_E :  1:tb:fast:work
+    RD1_E :  1:tb:fast:work
+    ALU_ResultM :  1:tb:fast:work
+    MemWriteE :  1:tb:fast:work
+END 

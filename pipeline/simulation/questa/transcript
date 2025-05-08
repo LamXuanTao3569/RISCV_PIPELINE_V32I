@@ -1,0 +1,358 @@
+# //  Questa Intel Starter FPGA Edition-64
+# //  Version 2024.3 linux_x86_64 Sep 10 2024
+# //
+# // Unpublished work. Copyright 2024 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# do Pipeline_Top_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Questa Intel Starter FPGA Edition-64 vmap 2024.3 Lib Mapping Utility 2024.09 Sep 10 2024
+# vmap work rtl_work 
+# Copying /home/taolam/intelFPGA_lite/24.1std/questa_fse/linux_x86_64/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Decode_Cycle.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:48 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Decode_Cycle.v 
+# -- Compiling module decode_cycle
+# 
+# Top level modules:
+# 	decode_cycle
+# End time: 05:17:48 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Register_File.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:48 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Register_File.v 
+# -- Compiling module Register_File
+# 
+# Top level modules:
+# 	Register_File
+# End time: 05:17:48 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/PC.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:48 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/PC.v 
+# -- Compiling module PC_Module
+# 
+# Top level modules:
+# 	PC_Module
+# End time: 05:17:48 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Sign_Extend.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:48 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Sign_Extend.v 
+# -- Compiling module Sign_Extend
+# 
+# Top level modules:
+# 	Sign_Extend
+# End time: 05:17:49 on May 09,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Writeback_Cycle.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:49 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Writeback_Cycle.v 
+# -- Compiling module writeback_cycle
+# 
+# Top level modules:
+# 	writeback_cycle
+# End time: 05:17:49 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/PC_Adder.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:49 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/PC_Adder.v 
+# -- Compiling module PC_Adder
+# 
+# Top level modules:
+# 	PC_Adder
+# End time: 05:17:49 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Control_Unit_Top.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:49 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Control_Unit_Top.v 
+# -- Compiling module Control_Unit_Top
+# 
+# Top level modules:
+# 	Control_Unit_Top
+# End time: 05:17:49 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Hazard_unit.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:49 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Hazard_unit.v 
+# -- Compiling module hazard_unit
+# 
+# Top level modules:
+# 	hazard_unit
+# End time: 05:17:49 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Execute_Cycle.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:49 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Execute_Cycle.v 
+# -- Compiling module execute_cycle
+# 
+# Top level modules:
+# 	execute_cycle
+# End time: 05:17:49 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/ALU.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:49 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/ALU.v 
+# -- Compiling module ALU
+# 
+# Top level modules:
+# 	ALU
+# End time: 05:17:49 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/ALU_Decoder.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:49 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/ALU_Decoder.v 
+# -- Compiling module ALU_Decoder
+# 
+# Top level modules:
+# 	ALU_Decoder
+# End time: 05:17:49 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Data_Memory.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:49 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Data_Memory.v 
+# -- Compiling module Data_Memory
+# 
+# Top level modules:
+# 	Data_Memory
+# End time: 05:17:49 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Main_Decoder.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:49 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Main_Decoder.v 
+# -- Compiling module Main_Decoder
+# 
+# Top level modules:
+# 	Main_Decoder
+# End time: 05:17:49 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Mux.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:49 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Mux.v 
+# -- Compiling module Mux
+# -- Compiling module Mux_3_by_1
+# 
+# Top level modules:
+# 	Mux
+# 	Mux_3_by_1
+# End time: 05:17:49 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Memory_Cycle.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:49 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Memory_Cycle.v 
+# -- Compiling module memory_cycle
+# 
+# Top level modules:
+# 	memory_cycle
+# End time: 05:17:49 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Fetch_Cycle.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:49 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Fetch_Cycle.v 
+# -- Compiling module fetch_cycle
+# 
+# Top level modules:
+# 	fetch_cycle
+# End time: 05:17:49 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Pipeline_Top.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:49 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Pipeline_Top.v 
+# -- Compiling module Pipeline_top
+# 
+# Top level modules:
+# 	Pipeline_top
+# End time: 05:17:49 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Instruction_Memory.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:49 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/Instruction_Memory.v 
+# -- Compiling module Instruction_Memory
+# 
+# Top level modules:
+# 	Instruction_Memory
+# End time: 05:17:49 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -vlog01compat -work work +incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src {/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/pipeline_tb.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 05:17:49 on May 09,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+/home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src" /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/pipeline_tb.v 
+# -- Compiling module tb
+# 
+# Top level modules:
+# 	tb
+# End time: 05:17:49 on May 09,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs="+acc"  tb
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs=""+acc"" tb 
+# Start time: 05:17:49 on May 09,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.tb(fast)
+# Loading work.Pipeline_top(fast)
+# Loading work.fetch_cycle(fast)
+# Loading work.PC_Adder(fast)
+# Loading work.Mux(fast)
+# Loading work.PC_Module(fast)
+# Loading work.Instruction_Memory(fast)
+# Loading work.decode_cycle(fast)
+# Loading work.Control_Unit_Top(fast)
+# Loading work.Main_Decoder(fast)
+# Loading work.ALU_Decoder(fast)
+# Loading work.Register_File(fast)
+# Loading work.Sign_Extend(fast)
+# Loading work.execute_cycle(fast)
+# Loading work.Mux_3_by_1(fast)
+# Loading work.ALU(fast)
+# Loading work.memory_cycle(fast)
+# Loading work.Data_Memory(fast)
+# Loading work.writeback_cycle(fast)
+# Loading work.hazard_unit(fast)
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# Time=0 rst=0 InstrD=00000000 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=20000 rst=1 InstrD=00000000 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=25000 rst=1 InstrD=00500093 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=35000 rst=1 InstrD=001080b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=45000 rst=1 InstrD=00108133 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000005 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=10 ForwardB_E=10
+# Time=55000 rst=1 InstrD=401101b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=0000000a ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=01 ForwardB_E=01
+# Time=65000 rst=1 InstrD=00710233 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000005 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=01 ForwardB_E=00
+# Time=75000 rst=1 InstrD=008102b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000005 ReadDataW=00000000 ResultW=0000000a RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=85000 rst=1 InstrD=00910333 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=95000 rst=1 InstrD=001112b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000005 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=105000 rst=1 InstrD=005152b3 RD1_E=00000000 RD2_E=0000000a ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=115000 rst=1 InstrD=405152b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=10
+# Time=125000 rst=1 InstrD=0020a2b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=10
+# Time=135000 rst=1 InstrD=0030a2b3 RD1_E=0000000a RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=145000 rst=1 InstrD=00022583 RD1_E=0000000a RD2_E=00000005 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=155000 rst=1 InstrD=00b22223 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=165000 rst=1 InstrD=00022403 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=1 PCSrcE=0 ForwardA_E=00 ForwardB_E=01
+# Time=175000 rst=1 InstrD=00022403 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000004 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=1 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=185000 rst=1 InstrD=00022483 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000004 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=195000 rst=1 InstrD=00022403 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000004 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=205000 rst=1 InstrD=00022483 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000004 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=215000 rst=1 InstrD=00822023 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=225000 rst=1 InstrD=00922123 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=1 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=235000 rst=1 InstrD=fe310fe3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=1 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=245000 rst=1 InstrD=fe2110e3 RD1_E=00000000 RD2_E=00000005 ALU_ResultM=00000002 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=1 ForwardA_E=00 ForwardB_E=00
+# Time=255000 rst=1 InstrD=0020c263 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=fffffffb ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=265000 rst=1 InstrD=00000000 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=xxxxxxxx ResultW=00000002 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=275000 rst=1 InstrD=fe310fe3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=fffffffb RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=285000 rst=1 InstrD=fe2110e3 RD1_E=00000000 RD2_E=00000005 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=1 ForwardA_E=00 ForwardB_E=00
+# Time=295000 rst=1 InstrD=0020c263 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=fffffffb ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=305000 rst=1 InstrD=00000000 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=xxxxxxxx ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=315000 rst=1 InstrD=fe2110e3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=fffffffb RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=325000 rst=1 InstrD=0020c263 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=335000 rst=1 InstrD=0020d263 RD1_E=0000000a RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=1 ForwardA_E=00 ForwardB_E=00
+# Time=345000 rst=1 InstrD=0020e263 RD1_E=0000000a RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=355000 rst=1 InstrD=00000000 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=365000 rst=1 InstrD=0020e263 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=375000 rst=1 InstrD=0020f263 RD1_E=0000000a RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=1 ForwardA_E=00 ForwardB_E=00
+# Time=385000 rst=1 InstrD=008000ef RD1_E=0000000a RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=1 ForwardA_E=00 ForwardB_E=00
+# Time=395000 rst=1 InstrD=00000000 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=415000 rst=1 InstrD=000080e7 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=425000 rst=1 InstrD=000010b7 RD1_E=0000000a RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=1 ForwardA_E=10 ForwardB_E=00
+# Time=435000 rst=1 InstrD=00001097 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=445000 rst=1 InstrD=00000000 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=455000 rst=1 InstrD=001080b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000070 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=465000 rst=1 InstrD=00108133 RD1_E=0000000a RD2_E=0000000a ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=10 ForwardB_E=10
+# Time=475000 rst=1 InstrD=401101b3 RD1_E=00000070 RD2_E=00000070 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=01 ForwardB_E=01
+# Time=485000 rst=1 InstrD=00710233 RD1_E=00000000 RD2_E=00000070 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=01 ForwardB_E=00
+# Time=495000 rst=1 InstrD=008102b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=ffffff90 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=505000 rst=1 InstrD=00910333 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=xxxxxxxx ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=515000 rst=1 InstrD=001112b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=ffffff90 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=525000 rst=1 InstrD=005152b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=535000 rst=1 InstrD=405152b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=10
+# Time=545000 rst=1 InstrD=0020a2b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=10
+# Time=555000 rst=1 InstrD=0030a2b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=565000 rst=1 InstrD=00022583 RD1_E=00000000 RD2_E=ffffff90 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=575000 rst=1 InstrD=00b22223 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=585000 rst=1 InstrD=00022403 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=1 PCSrcE=0 ForwardA_E=00 ForwardB_E=01
+# Time=595000 rst=1 InstrD=00022403 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000004 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=1 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=605000 rst=1 InstrD=00022483 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000004 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=615000 rst=1 InstrD=00022403 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000004 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=625000 rst=1 InstrD=00022483 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000004 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=635000 rst=1 InstrD=00822023 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=645000 rst=1 InstrD=00922123 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=1 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=655000 rst=1 InstrD=fe310fe3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=1 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=665000 rst=1 InstrD=fe2110e3 RD1_E=00000000 RD2_E=ffffff90 ALU_ResultM=00000002 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=1 ForwardA_E=00 ForwardB_E=00
+# Time=675000 rst=1 InstrD=0020c263 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000070 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=685000 rst=1 InstrD=00000000 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000002 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=695000 rst=1 InstrD=fe310fe3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000070 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=705000 rst=1 InstrD=fe2110e3 RD1_E=00000000 RD2_E=ffffff90 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=1 ForwardA_E=00 ForwardB_E=00
+# Time=715000 rst=1 InstrD=0020c263 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000070 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=725000 rst=1 InstrD=00000000 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=735000 rst=1 InstrD=fe2110e3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000070 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=745000 rst=1 InstrD=0020c263 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=755000 rst=1 InstrD=0020d263 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=1 ForwardA_E=00 ForwardB_E=00
+# Time=765000 rst=1 InstrD=0020e263 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=775000 rst=1 InstrD=00000000 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=785000 rst=1 InstrD=0020e263 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=795000 rst=1 InstrD=0020f263 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=1 ForwardA_E=00 ForwardB_E=00
+# Time=805000 rst=1 InstrD=008000ef RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=1 ForwardA_E=00 ForwardB_E=00
+# Time=815000 rst=1 InstrD=00000000 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=835000 rst=1 InstrD=000080e7 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=845000 rst=1 InstrD=000010b7 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=1 ForwardA_E=10 ForwardB_E=00
+# Time=855000 rst=1 InstrD=00001097 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=865000 rst=1 InstrD=00000000 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=875000 rst=1 InstrD=001080b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000070 RegWriteE=0 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=885000 rst=1 InstrD=00108133 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=10 ForwardB_E=10
+# Time=895000 rst=1 InstrD=401101b3 RD1_E=00000070 RD2_E=00000070 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=01 ForwardB_E=01
+# Time=905000 rst=1 InstrD=00710233 RD1_E=00000000 RD2_E=00000070 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=01 ForwardB_E=00
+# Time=915000 rst=1 InstrD=008102b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=ffffff90 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=925000 rst=1 InstrD=00910333 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=xxxxxxxx ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=935000 rst=1 InstrD=001112b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=ffffff90 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=945000 rst=1 InstrD=005152b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=955000 rst=1 InstrD=405152b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=10
+# Time=965000 rst=1 InstrD=0020a2b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=10
+# Time=975000 rst=1 InstrD=0030a2b3 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=985000 rst=1 InstrD=00022583 RD1_E=00000000 RD2_E=ffffff90 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=995000 rst=1 InstrD=00b22223 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=1 MemWriteE=0 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# Time=1005000 rst=1 InstrD=00022403 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000000 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=1 PCSrcE=0 ForwardA_E=00 ForwardB_E=01
+# Time=1015000 rst=1 InstrD=00022403 RD1_E=00000000 RD2_E=00000000 ALU_ResultM=00000004 ReadDataW=00000000 ResultW=00000000 RegWriteE=0 MemWriteE=1 PCSrcE=0 ForwardA_E=00 ForwardB_E=00
+# ** Note: $finish    : /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/pipeline_tb.v(37)
+#    Time: 1020 ns  Iteration: 0  Instance: /tb
+# 1
+# Break in Module tb at /home/taolam/RISC-V-32I-5-stage-Pipeline-Core/src/pipeline_tb.v line 37
+# End time: 05:18:25 on May 09,2025, Elapsed time: 0:00:36
+# Errors: 0, Warnings: 1
