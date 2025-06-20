@@ -1,7 +1,14 @@
 module RISCV_Single_Cycle (
     input clk,
-    input rst
+    input rst_n,
+    output [31:0] PC_out_top,
+    output [31:0] InstrF,
+    output [31:0] DataMem0,
+    output [31:0] DataMem1,
+    output [31:0] DataMem2
 );
+
+    wire rst = ~rst_n;
 
     //----------------------------------------------------------------
     // Wires Declaration
@@ -263,5 +270,11 @@ module RISCV_Single_Cycle (
         .ForwardA(forward_a_ex),
         .ForwardB(forward_b_ex)
     );
+
+    assign PC_out_top = if_pc;
+    assign InstrF = if_instr;
+    assign DataMem0 = main_mem.mem[0];
+    assign DataMem1 = main_mem.mem[1];
+    assign DataMem2 = main_mem.mem[2];
 
 endmodule

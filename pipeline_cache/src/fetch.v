@@ -3,6 +3,9 @@ module fetch(
     input pc_write_en,
     input pc_src, // mux select for PC from EX stage (for branches/jumps)
     input [31:0] pc_target, // branch/jump target from EX stage
+    input predictor_update,
+    input [5:0] predictor_update_index,
+    input predictor_outcome,
 
     output [31:0] pc_out,
     output [31:0] pc_plus4_out,
@@ -38,9 +41,6 @@ module fetch(
     reg predictor_table [0:63];
     reg [31:0] predictor_correct, predictor_total;
     wire [5:0] predictor_index = pc_reg[7:2];
-    reg predictor_update;
-    reg predictor_outcome;
-    reg [5:0] predictor_update_index;
 
     // Predictor update logic (to be triggered by execute stage feedback)
     always @(posedge clk or posedge rst) begin
