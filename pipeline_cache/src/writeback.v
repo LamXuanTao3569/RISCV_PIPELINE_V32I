@@ -15,6 +15,9 @@ module writeback(
     output reg [4:0] rd_wb
 );
     always @(*) begin
+        if (RegWrite_in) begin
+            $display("WRITEBACK: rd=%0d data=%h RegWrite=%b Time=%0t", rd_in, result_wb, RegWrite_in, $time);
+        end
         case (ResultSrc_in)
             2'b00: result_wb = ALU_Result_in;
             2'b01: result_wb = ReadData_in;
