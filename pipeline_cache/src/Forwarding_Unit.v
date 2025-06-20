@@ -6,7 +6,8 @@ module Forwarding_Unit(
     input [4:0] EX_MEM_rd,
     input [4:0] MEM_WB_rd,
     output reg [1:0] ForwardA,
-    output reg [1:0] ForwardB
+    output reg [1:0] ForwardB,
+    output reg [1:0] ForwardD
 );
 
     always @(*) begin
@@ -26,6 +27,15 @@ module Forwarding_Unit(
             ForwardB = 2'b10; // Forward from MEM/WB
         end else begin
             ForwardB = 2'b00; // No forwarding
+        end
+
+        // Forwarding for store data (store value)
+        if (EX_MEM_RegWrite && (EX_MEM_rd != 5'b0) && (EX_MEM_rd == ID_EX_rs2)) begin
+            ForwardD = 2'b01;
+        end else if (MEM_WB_RegWrite && (MEM_WB_rd != 5'b0) && (MEM_WB_rd == ID_EX_rs2)) begin
+            ForwardD = 2'b10;
+        end else begin
+            ForwardD = 2'b00;
         end
     end
 

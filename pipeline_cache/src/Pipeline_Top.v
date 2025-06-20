@@ -22,7 +22,7 @@ module RISCV_Single_Cycle (
     wire pc_write_en, if_id_write_en, id_ex_bubble, if_id_flush;
     
     // Forwarding Unit -> Forwarding selectors
-    wire [1:0] forward_a_ex, forward_b_ex;
+    wire [1:0] forward_a_ex, forward_b_ex, forward_d_ex;
 
     // WriteBack -> Decode (for register file write)
     wire wb_reg_write_en;
@@ -196,11 +196,11 @@ module RISCV_Single_Cycle (
         .MemOp_in(id_ex_mem_op), .ALUControl_in(id_ex_alu_control), .funct3_in(id_ex_funct3),
         .RD1_in(id_ex_rd1), .RD2_in(id_ex_rd2), .Imm_Ext_in(id_ex_imm_ext), .PC_in(id_ex_pc),
         .PCPlus4_in(id_ex_pc_plus4), .rd_in(id_ex_rd),
-        .ForwardA(forward_a_ex), .ForwardB(forward_b_ex),
+        .ForwardA(forward_a_ex), .ForwardB(forward_b_ex), .ForwardD(forward_d_ex),
         .alu_result_mem(ex_mem_alu_result), .result_wb(wb_result),
         .RegWrite_out(ex_reg_write), .MemWrite_out(ex_mem_write), .ResultSrc_out(ex_result_src), 
         .MemOp_out(ex_mem_op), .rd_out(ex_rd), .PCPlus4_out(ex_pc_plus4), 
-        .WriteData_out(ex_write_data), .alu_result_out(ex_alu_result),
+        .WriteData_out(ex_mem_write_data), .alu_result_out(ex_alu_result),
         .pc_src_out(ex_pc_src), .pc_target_out(ex_pc_target),
         .branch_feedback_valid(branch_feedback_valid),
         .branch_feedback_pc(branch_feedback_pc),
@@ -210,7 +210,7 @@ module RISCV_Single_Cycle (
     EX_MEM_reg ex_mem_reg (
         .clk(clk), .rst(rst),
         .RegWrite_in(ex_reg_write), .MemWrite_in(ex_mem_write), .ResultSrc_in(ex_result_src),
-        .MemOp_in(ex_mem_op), .ALU_Result_in(ex_alu_result), .WriteData_in(ex_write_data), 
+        .MemOp_in(ex_mem_op), .ALU_Result_in(ex_alu_result), .WriteData_in(ex_mem_write_data), 
         .rd_in(ex_rd), .PCPlus4_in(ex_pc_plus4),
         .RegWrite_out(ex_mem_reg_write), .MemWrite_out(ex_mem_mem_write), .ResultSrc_out(ex_mem_result_src),
         .MemOp_out(ex_mem_mem_op), .ALU_Result_out(ex_mem_alu_result), .WriteData_out(ex_mem_write_data), 
@@ -273,7 +273,8 @@ module RISCV_Single_Cycle (
         .EX_MEM_rd(ex_mem_rd),
         .MEM_WB_rd(mem_wb_rd),
         .ForwardA(forward_a_ex),
-        .ForwardB(forward_b_ex)
+        .ForwardB(forward_b_ex),
+        .ForwardD(forward_d_ex)
     );
 
     // Register File instance for testbench access
