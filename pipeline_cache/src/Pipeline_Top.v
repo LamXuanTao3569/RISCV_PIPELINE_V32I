@@ -5,7 +5,10 @@ module RISCV_Single_Cycle (
     output [31:0] InstrF,
     output [31:0] DataMem0,
     output [31:0] DataMem1,
-    output [31:0] DataMem2
+    output [31:0] DataMem2,
+    output [31:0] Reg_inst_registers [0:31],
+    output [31:0] DMEM_inst_memory [0:1023],
+    output [31:0] IMEM_inst_memory [0:1023]
 );
 
     wire rst = ~rst_n;
@@ -271,6 +274,45 @@ module RISCV_Single_Cycle (
         .ForwardB(forward_b_ex)
     );
 
+    // Register File instance for testbench access
+    Register_File Reg_inst (
+        .clk(clk),
+        .rst(rst),
+        .WE3(wb_reg_write_en),
+        .A1(id_rs1),
+        .A2(id_rs2),
+        .A3(wb_rd),
+        .WD3(wb_result),
+        .RD1(),
+        .RD2()
+    );
+    // Data Memory instance for testbench access
+    Data_Memory DMEM_inst (
+        .clk(clk),
+        .rst(rst),
+        .WE(ex_mem_mem_write),
+        .MemOp(ex_mem_mem_op),
+        .A(ex_mem_alu_result),
+        .WD(ex_mem_write_data),
+        .RD()
+    );
+    // Instruction Memory instance for testbench access
+    Instruction_Memory IMEM_inst (
+        .rst(rst),
+        .A(if_pc),
+        .RD()
+    );
+    // Expose internal arrays to outputs
+    genvar i;
+    generate
+        for (i = 0; i < 32; i = i + 1) begin : regfile_out
+            assign Reg_inst_registers[i] = Reg_inst.Register[i];
+        end
+        for (i = 0; i < 1024; i = i + 1) begin : dmem_out
+            assign DMEM_inst_memory[i] = DMEM_inst.mem[i];
+            assign IMEM_inst_memory[i] = IMEM_inst.mem[i];
+        end
+    endgenerate
     assign PC_out_top = if_pc;
     assign InstrF = if_instr;
     assign DataMem0 = main_mem.mem[0];
