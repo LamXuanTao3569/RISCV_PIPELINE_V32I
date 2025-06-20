@@ -307,7 +307,7 @@ module RISCV_Single_Cycle (
     genvar i;
     generate
         for (i = 0; i < 32; i = i + 1) begin : regfile_out
-            assign Reg_inst_registers[i] = Reg_inst.Register[i];
+            assign Reg_inst_registers[i] = Reg_inst.registers[i];
         end
     endgenerate
     assign PC_out_top = if_pc;
