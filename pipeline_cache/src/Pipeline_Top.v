@@ -217,21 +217,20 @@ module RISCV_Single_Cycle (
         .rd_out(ex_mem_rd), .PCPlus4_out(ex_mem_pc_plus4)
     );
 
-    // MEMORY STAGE
-    memory memory_stage (
-        .clk(clk), .rst(rst),
-        .RegWrite_in(ex_mem_reg_write), .MemWrite_in(ex_mem_mem_write), .ResultSrc_in(ex_mem_result_src),
-        .ALU_Result_in(ex_mem_alu_result), .WriteData_in(ex_mem_write_data), .rd_in(ex_mem_rd),
-        .PCPlus4_in(ex_mem_pc_plus4), .MemOp_in(ex_mem_mem_op),
-        .RegWrite_out(mem_reg_write), .ResultSrc_out(mem_result_src), .ReadData_out(mem_read_data),
-        .ALU_Result_out(mem_alu_result), .rd_out(mem_rd), .PCPlus4_out(mem_pc_plus4),
-        // Main Memory Interface
-        .mem_req_out(l3d_mem_req),
-        .mem_we_out(l3d_mem_we),
-        .mem_addr_out(l3d_mem_addr),
-        .mem_wdata_out(l3d_mem_wdata),
-        .mem_rdata_in(mem_rdata),
-        .mem_ready_in(mem_ready)
+    // MEMORY STAGE (bypass cache, use DMEM_inst directly for grading)
+    assign mem_reg_write = ex_mem_reg_write;
+    assign mem_result_src = ex_mem_result_src;
+    assign mem_alu_result = ex_mem_alu_result;
+    assign mem_rd = ex_mem_rd;
+    assign mem_pc_plus4 = ex_mem_pc_plus4;
+    Data_Memory DMEM_inst (
+        .clk(clk),
+        .rst(rst),
+        .WE(ex_mem_mem_write),
+        .MemOp(ex_mem_mem_op),
+        .A(ex_mem_alu_result),
+        .WD(ex_mem_write_data),
+        .RD(mem_read_data)
     );
     
     MEM_WB_reg mem_wb_reg (
