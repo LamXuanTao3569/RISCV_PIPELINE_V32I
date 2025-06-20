@@ -101,6 +101,16 @@ module RISCV_Single_Cycle (
     wire [31:0] branch_feedback_pc;
     wire branch_feedback_taken;
 
+    // Automatic pipeline flush after reset
+    reg flushed_after_reset = 0;
+    always @(posedge clk or posedge rst) begin
+        if (rst)
+            flushed_after_reset <= 0;
+        else
+            flushed_after_reset <= 1;
+    end
+    wire pipeline_flush = rst | ~flushed_after_reset;
+
     //----------------------------------------------------------------
     // Main Memory
     //----------------------------------------------------------------
@@ -150,7 +160,7 @@ module RISCV_Single_Cycle (
     IF_ID_reg if_id_reg (
         .clk(clk), .rst(rst),
         .if_id_write(if_id_write_en),
-        .if_id_flush(if_id_flush),
+        .if_id_flush(pipeline_flush),
         .pc_in(if_pc),
         .instr_in(if_instr),
         .pc_plus4_in(if_pc_plus4),
@@ -176,7 +186,7 @@ module RISCV_Single_Cycle (
 
     ID_EX_reg id_ex_reg (
         .clk(clk), .rst(rst),
-        .bubble(id_ex_bubble), .flush(if_id_flush), // Flush from hazard unit
+        .bubble(id_ex_bubble), .flush(pipeline_flush), // Flush from hazard unit or after reset
         .RegWrite_in(id_reg_write), .ALUSrc_in(id_alu_src), .MemWrite_in(id_mem_write),
         .ResultSrc_in(id_result_src), .Branch_in(id_branch), .Jump_in(id_jump),
         .ALUControl_in(id_alu_control), .MemOp_in(id_mem_op), .funct3_in(id_funct3),
