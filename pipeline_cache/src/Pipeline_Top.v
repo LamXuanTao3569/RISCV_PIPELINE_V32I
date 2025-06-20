@@ -233,6 +233,14 @@ module RISCV_Single_Cycle (
         .RD(mem_read_data)
     );
     
+    // Expose DMEM_inst.memory to output for testbench
+    genvar j;
+    generate
+        for (j = 0; j < 1024; j = j + 1) begin : dmem_out
+            assign DMEM_inst_memory[j] = DMEM_inst.memory[j];
+        end
+    endgenerate
+    
     MEM_WB_reg mem_wb_reg (
         .clk(clk), .rst(rst),
         .RegWrite_in(mem_reg_write), .ResultSrc_in(mem_result_src), .ReadData_in(mem_read_data),
