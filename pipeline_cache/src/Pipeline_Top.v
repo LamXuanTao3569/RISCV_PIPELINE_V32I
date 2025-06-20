@@ -111,6 +111,19 @@ module RISCV_Single_Cycle (
     end
     wire pipeline_flush = rst | ~flushed_after_reset;
 
+    // Power-on reset logic to ensure pipeline is held in reset for first 10 cycles
+    reg [3:0] por_counter = 4'd0;
+    reg power_on_reset = 1'b1;
+    always @(posedge clk) begin
+        if (por_counter < 4'd10) begin
+            por_counter <= por_counter + 1;
+            power_on_reset <= 1'b1;
+        end else begin
+            power_on_reset <= 1'b0;
+        end
+    end
+    wire rst_internal = rst | power_on_reset;
+
     //----------------------------------------------------------------
     // Main Memory
     //----------------------------------------------------------------
@@ -136,7 +149,7 @@ module RISCV_Single_Cycle (
 
     // FETCH STAGE
     fetch fetch_stage (
-        .clk(clk), .rst(rst),
+        .clk(clk), .rst(rst_internal),
         .pc_write_en(pc_write_en),
         .pc_src(exception ? 1'b1 : ex_pc_src),
         .pc_target(exception ? 32'h00000080 : ex_pc_target),
@@ -158,7 +171,7 @@ module RISCV_Single_Cycle (
     assign if_instr = IMEM_inst.memory[if_pc[31:2]];
 
     IF_ID_reg if_id_reg (
-        .clk(clk), .rst(rst),
+        .clk(clk), .rst(rst_internal),
         .if_id_write(if_id_write_en),
         .if_id_flush(pipeline_flush),
         .pc_in(if_pc),
@@ -171,7 +184,7 @@ module RISCV_Single_Cycle (
 
     // DECODE STAGE
     decode decode_stage (
-        .clk(clk), .rst(rst),
+        .clk(clk), .rst(rst_internal),
         .instr_in(if_id_instr),
         .reg_write_en_wb(wb_reg_write_en),
         .rd_wb(wb_rd),
@@ -185,8 +198,8 @@ module RISCV_Single_Cycle (
     );
 
     ID_EX_reg id_ex_reg (
-        .clk(clk), .rst(rst),
-        .bubble(id_ex_bubble), .flush(pipeline_flush), // Flush from hazard unit or after reset
+        .clk(clk), .rst(rst_internal),
+        .bubble(id_ex_bubble), .flush(pipeline_flush),
         .RegWrite_in(id_reg_write), .ALUSrc_in(id_alu_src), .MemWrite_in(id_mem_write),
         .ResultSrc_in(id_result_src), .Branch_in(id_branch), .Jump_in(id_jump),
         .ALUControl_in(id_alu_control), .MemOp_in(id_mem_op), .funct3_in(id_funct3),
@@ -218,7 +231,7 @@ module RISCV_Single_Cycle (
     );
 
     EX_MEM_reg ex_mem_reg (
-        .clk(clk), .rst(rst),
+        .clk(clk), .rst(rst_internal),
         .RegWrite_in(ex_reg_write), .MemWrite_in(ex_mem_write), .ResultSrc_in(ex_result_src),
         .MemOp_in(ex_mem_op), .ALU_Result_in(ex_alu_result), .WriteData_in(ex_mem_write_data), 
         .rd_in(ex_rd), .PCPlus4_in(ex_pc_plus4),
@@ -235,8 +248,8 @@ module RISCV_Single_Cycle (
     assign mem_pc_plus4 = ex_mem_pc_plus4;
     Data_Memory DMEM_inst (
         .clk(clk),
-        .rst(rst),
-        .WE(ex_mem_mem_write & ~rst),
+        .rst(rst_internal),
+        .WE(ex_mem_mem_write & ~rst_internal),
         .MemOp(ex_mem_mem_op),
         .A(ex_mem_alu_result),
         .WD(ex_mem_write_data),
@@ -252,7 +265,7 @@ module RISCV_Single_Cycle (
     endgenerate
     
     MEM_WB_reg mem_wb_reg (
-        .clk(clk), .rst(rst),
+        .clk(clk), .rst(rst_internal),
         .RegWrite_in(mem_reg_write), .ResultSrc_in(mem_result_src), .ReadData_in(mem_read_data),
         .ALU_Result_in(mem_alu_result), .rd_in(mem_rd), .PCPlus4_in(mem_pc_plus4),
         .RegWrite_out(mem_wb_reg_write), .ResultSrc_out(mem_wb_result_src), .ReadData_out(mem_wb_read_data),
@@ -298,7 +311,7 @@ module RISCV_Single_Cycle (
     // Register File instance for testbench access
     Register_File Reg_inst (
         .clk(clk),
-        .rst(rst),
+        .rst(rst_internal),
         .WE3(wb_reg_write_en),
         .A1(id_rs1),
         .A2(id_rs2),
@@ -309,7 +322,7 @@ module RISCV_Single_Cycle (
     );
     // Instruction Memory instance for testbench access
     Instruction_Memory IMEM_inst (
-        .rst(rst),
+        .rst(rst_internal),
         .A(if_pc),
         .RD()
     );
