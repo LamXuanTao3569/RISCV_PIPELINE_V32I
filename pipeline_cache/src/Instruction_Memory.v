@@ -7,8 +7,7 @@ module Instruction_Memory(rst, A, RD);
   
     assign RD = (rst == 1'b0) ? {32{1'b0}} : memory[A[31:2]];
 
-    initial begin
-        // Nạp từ file bên ngoài (cho simulation)
-        $readmemh("instructions.mem", memory);
-    end
+    // initial begin
+    //     $readmemh("instructions.mem", memory);
+    // end
 endmodule
