@@ -182,6 +182,22 @@ module RISCV_Single_Cycle (
         .pc_plus4_out(if_id_pc_plus4)
     );
 
+    // Register File instance for pipeline and testbench access
+    wire [4:0] rf_A1, rf_A2, rf_A3;
+    wire [31:0] rf_WD3, rf_RD1, rf_RD2;
+    wire rf_WE3;
+    Register_File Reg_inst (
+        .clk(clk),
+        .rst(rst_internal),
+        .WE3(rf_WE3),
+        .A1(rf_A1),
+        .A2(rf_A2),
+        .A3(rf_A3),
+        .WD3(rf_WD3),
+        .RD1(rf_RD1),
+        .RD2(rf_RD2)
+    );
+
     // DECODE STAGE
     decode decode_stage (
         .clk(clk), .rst(rst_internal),
@@ -189,6 +205,13 @@ module RISCV_Single_Cycle (
         .reg_write_en_wb(wb_reg_write_en),
         .rd_wb(wb_rd),
         .result_wb(wb_result),
+        .rd1_in(rf_RD1),
+        .rd2_in(rf_RD2),
+        .A1(rf_A1),
+        .A2(rf_A2),
+        .A3(rf_A3),
+        .WD3(rf_WD3),
+        .WE3(rf_WE3),
         .RegWrite_out(id_reg_write), .ALUSrc_out(id_alu_src), .MemWrite_out(id_mem_write),
         .ResultSrc_out(id_result_src), .Branch_out(id_branch), .Jump_out(id_jump),
         .ALUControl_out(id_alu_control), .MemOp_out(id_mem_op), .funct3_out(id_funct3),
@@ -308,18 +331,6 @@ module RISCV_Single_Cycle (
         .ForwardD(forward_d_ex)
     );
 
-    // Register File instance for testbench access
-    Register_File Reg_inst (
-        .clk(clk),
-        .rst(rst_internal),
-        .WE3(wb_reg_write_en),
-        .A1(id_rs1),
-        .A2(id_rs2),
-        .A3(wb_rd),
-        .WD3(wb_result),
-        .RD1(),
-        .RD2()
-    );
     // Instruction Memory instance for testbench access
     Instruction_Memory IMEM_inst (
         .rst(rst_internal),

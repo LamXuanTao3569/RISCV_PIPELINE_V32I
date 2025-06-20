@@ -7,6 +7,10 @@ module decode(
     input [4:0] rd_wb,
     input [31:0] result_wb,
 
+    // Inputs from ID/EX register
+    input [31:0] rd1_in,
+    input [31:0] rd2_in,
+
     // Outputs for ID/EX register
     output RegWrite_out,
     output ALUSrc_out,
@@ -23,7 +27,14 @@ module decode(
     output [4:0] rs1_out,
     output [4:0] rs2_out,
     output [4:0] rd_out,
-    output exception_out
+    output exception_out,
+
+    // Outputs for Register_File
+    output [4:0] A1,
+    output [4:0] A2,
+    output [4:0] A3,
+    output [31:0] WD3,
+    output WE3
 );
 
     wire [2:0] imm_src;
@@ -48,18 +59,6 @@ module decode(
         .MemOp(MemOp_out)
     );
 
-    Register_File reg_file (
-        .clk(clk),
-        .rst(rst),
-        .WE3(reg_write_en_wb),
-        .WD3(result_wb),
-        .A1(instr_in[19:15]),
-        .A2(instr_in[24:20]),
-        .A3(rd_wb),
-        .RD1(rd1_out),
-        .RD2(rd2_out)
-    );
-
     Sign_Extend sign_extend (
         .In(instr_in),
         .Imm_Ext(imm_ext_out),
@@ -79,8 +78,16 @@ module decode(
             default:
                 exception_reg = 1'b1;
         endcase
-        $display("DECODE: RD2=%h rs2=%d Time=%0t", rd2_out, instr_in[24:20], $time);
+        $display("DECODE: RD2=%h rs2=%d Time=%0t", rd2_in, instr_in[24:20], $time);
     end
     assign exception_out = exception_reg;
+
+    assign rd1_out = rd1_in;
+    assign rd2_out = rd2_in;
+    assign A1 = instr_in[19:15];
+    assign A2 = instr_in[24:20];
+    assign A3 = rd_wb;
+    assign WD3 = result_wb;
+    assign WE3 = reg_write_en_wb;
 
 endmodule 
