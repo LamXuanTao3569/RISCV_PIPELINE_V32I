@@ -295,15 +295,13 @@ module RISCV_Single_Cycle (
         .MemOp(ex_mem_mem_op),
         .A(ex_mem_alu_result),
         .WD(ex_mem_write_data),
-        .RD(),
-        .memory_out(DMEM_inst_memory)
+        .RD()
     );
     // Instruction Memory instance for testbench access
     Instruction_Memory IMEM_inst (
         .rst(rst),
         .A(if_pc),
-        .RD(),
-        .memory_out(IMEM_inst_memory)
+        .RD()
     );
     // Expose internal arrays to outputs
     genvar i;
