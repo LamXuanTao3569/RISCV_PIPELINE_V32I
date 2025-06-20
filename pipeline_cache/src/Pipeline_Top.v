@@ -295,23 +295,21 @@ module RISCV_Single_Cycle (
         .MemOp(ex_mem_mem_op),
         .A(ex_mem_alu_result),
         .WD(ex_mem_write_data),
-        .RD()
+        .RD(),
+        .memory_out(DMEM_inst_memory)
     );
     // Instruction Memory instance for testbench access
     Instruction_Memory IMEM_inst (
         .rst(rst),
         .A(if_pc),
-        .RD()
+        .RD(),
+        .memory_out(IMEM_inst_memory)
     );
     // Expose internal arrays to outputs
     genvar i;
     generate
         for (i = 0; i < 32; i = i + 1) begin : regfile_out
             assign Reg_inst_registers[i] = Reg_inst.Register[i];
-        end
-        for (i = 0; i < 1024; i = i + 1) begin : dmem_out
-            assign DMEM_inst_memory[i] = DMEM_inst.mem[i];
-            assign IMEM_inst_memory[i] = IMEM_inst.mem[i];
         end
     endgenerate
     assign PC_out_top = if_pc;
@@ -320,15 +318,5 @@ module RISCV_Single_Cycle (
     assign DataMem1 = main_mem.mem[1];
     assign DataMem2 = main_mem.mem[2];
     assign Instruction_out_top = if_instr;
-
-    // For testbench compatibility: alias the memories for hierarchical access
-    genvar j;
-    generate
-        for (j = 0; j < 1024; j = j + 1) begin : dmem_alias
-            // These lines allow hierarchical access as dut.DMEM_inst.memory[j] and dut.IMEM_inst.memory[j]
-            wire [31:0] _dmem_dummy = DMEM_inst.mem[j];
-            wire [31:0] _imem_dummy = IMEM_inst.mem[j];
-        end
-    endgenerate
 
 endmodule

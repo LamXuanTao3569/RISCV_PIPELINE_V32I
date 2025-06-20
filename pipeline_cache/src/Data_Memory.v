@@ -2,7 +2,8 @@ module Data_Memory(
     input clk, rst, WE,
     input [1:0] MemOp,
     input [31:0] A, WD,
-    output reg [31:0] RD
+    output reg [31:0] RD,
+    output [31:0] memory_out [0:1023]
 );
     reg [31:0] mem [0:1023];
     integer i;
@@ -67,4 +68,11 @@ module Data_Memory(
             endcase
         end
     end
+
+    genvar idx;
+    generate
+        for (idx = 0; idx < 1024; idx = idx + 1) begin : expose_mem
+            assign memory_out[idx] = mem[idx];
+        end
+    endgenerate
 endmodule
