@@ -340,4 +340,11 @@ module RISCV_Single_Cycle (
     assign DataMem2 = main_mem.mem[2];
     assign Instruction_out_top = if_instr;
 
+    // Debug: Print store data and address at each store attempt
+    always @(posedge clk) begin
+        if (ex_mem_mem_write && $time > 0) begin
+            $display("TOP: Store Addr=%h Data=%h MemWrite=%b Time=%0t", ex_mem_alu_result, ex_mem_write_data, ex_mem_mem_write, $time);
+        end
+    end
+
 endmodule
