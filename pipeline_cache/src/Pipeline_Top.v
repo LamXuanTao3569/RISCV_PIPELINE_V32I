@@ -331,13 +331,20 @@ module RISCV_Single_Cycle (
         .ForwardD(forward_d_ex)
     );
 
-    // Instruction Memory instance for testbench access
+    // Instruction Memory instance for pipeline and testbench access
     Instruction_Memory IMEM_inst (
         .rst(rst_internal),
         .A(if_pc),
         .RD()
     );
-    // Expose internal arrays to outputs
+    // Expose IMEM_inst.memory to output for testbench
+    genvar k;
+    generate
+        for (k = 0; k < 1024; k = k + 1) begin : imem_out
+            assign IMEM_inst_memory[k] = IMEM_inst.memory[k];
+        end
+    endgenerate
+    // Expose Reg_inst.registers to output for testbench
     genvar i;
     generate
         for (i = 0; i < 32; i = i + 1) begin : regfile_out
@@ -350,12 +357,5 @@ module RISCV_Single_Cycle (
     assign DataMem1 = main_mem.mem[1];
     assign DataMem2 = main_mem.mem[2];
     assign Instruction_out_top = if_instr;
-
-    // Debug: Print store data and address at each store attempt
-    always @(posedge clk) begin
-        if (ex_mem_mem_write && $time > 0) begin
-            $display("TOP: Store Addr=%h Data=%h MemWrite=%b Time=%0t", ex_mem_alu_result, ex_mem_write_data, ex_mem_mem_write, $time);
-        end
-    end
 
 endmodule

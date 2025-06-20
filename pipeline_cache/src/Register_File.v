@@ -16,7 +16,6 @@ module Register_File(
             registers[0] <= 32'h0; // x0 is always 0
             if (WE3 && (A3 != 5'h00)) begin
                 registers[A3] <= WD3;
-                $display("REGFILE WRITE: x%0d <= %h at time %0t", A3, WD3, $time);
             end
         end
     end

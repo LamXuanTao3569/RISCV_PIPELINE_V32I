@@ -66,9 +66,6 @@ module execute(
             2'b10: store_data = result_wb;
             default: store_data = RD2_in;
         endcase
-        if (MemWrite_in) begin
-            $display("EXECUTE: StoreData=%h RD2_in=%h alu_result_mem=%h result_wb=%h ForwardD=%b Time=%0t", store_data, RD2_in, alu_result_mem, result_wb, ForwardD, $time);
-        end
     end
     
     assign WriteData_out = store_data;

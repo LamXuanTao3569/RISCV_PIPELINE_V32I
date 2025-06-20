@@ -14,7 +14,6 @@ module Data_Memory(
 
     always @(posedge clk) begin
         if (WE && $time > 0) begin
-            $display("STORE: Addr=%h Data=%h MemOp=%b Time=%0t", A, WD, MemOp, $time);
             case (MemOp)
                 2'b00: begin // sb
                     case (A[1:0])

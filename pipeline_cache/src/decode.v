@@ -78,7 +78,6 @@ module decode(
             default:
                 exception_reg = 1'b1;
         endcase
-        $display("DECODE: RD2=%h rs2=%d Time=%0t", rd2_in, instr_in[24:20], $time);
     end
     assign exception_out = exception_reg;
 
