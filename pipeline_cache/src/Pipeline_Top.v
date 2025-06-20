@@ -1,4 +1,4 @@
-module Pipeline_Top (
+module RISCV_Single_Cycle (
     input clk,
     input rst
 );

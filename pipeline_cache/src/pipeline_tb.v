@@ -2,8 +2,8 @@
 module pipeline_tb;
     reg clk, rst;
 
-    // Instantiate Pipeline_Top
-    Pipeline_Top uut (
+    // Instantiate RISCV_Single_Cycle
+    RISCV_Single_Cycle uut (
         .clk(clk),
         .rst(rst)
     );
@@ -82,13 +82,12 @@ module pipeline_tb;
         $display("Branch Predictor: correct = %d, total = %d, accuracy = %f", uut.fetch_stage.predictor_correct, uut.fetch_stage.predictor_total, uut.fetch_stage.predictor_total ? (1.0 * uut.fetch_stage.predictor_correct / uut.fetch_stage.predictor_total) : 0.0);
     end
 
-    // Monitor pipeline state (requires exposing pipeline registers in Pipeline_top for simulation)
-    /*
+    // Monitor pipeline state (requires exposing pipeline registers in RISCV_Single_Cycle for simulation)
     initial begin
         $display("Time\tPCF\tInstrF\tPCD\tInstrD\tPCE\tInstrE\tPCM\tInstrM\tPCW\tInstrW");
         forever begin
             @(posedge clk);
-            // expose these signals in Pipeline_top 
+            // expose these signals in RISCV_Single_Cycle
             $display("%0t\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h",
                 $time,
                 uut.PCF, uut.InstrF,
@@ -99,7 +98,6 @@ module pipeline_tb;
             );
         end
     end
-    */
 
     initial #1000 $finish;
 endmodule
