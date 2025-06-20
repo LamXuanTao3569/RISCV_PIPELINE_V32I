@@ -8,7 +8,8 @@ module RISCV_Single_Cycle (
     output [31:0] DataMem2,
     output [31:0] Reg_inst_registers [0:31],
     output [31:0] DMEM_inst_memory [0:1023],
-    output [31:0] IMEM_inst_memory [0:1023]
+    output [31:0] IMEM_inst_memory [0:1023],
+    output [31:0] Instruction_out_top
 );
 
     wire rst = ~rst_n;
@@ -318,5 +319,16 @@ module RISCV_Single_Cycle (
     assign DataMem0 = main_mem.mem[0];
     assign DataMem1 = main_mem.mem[1];
     assign DataMem2 = main_mem.mem[2];
+    assign Instruction_out_top = if_instr;
+
+    // For testbench compatibility: alias the memories for hierarchical access
+    genvar j;
+    generate
+        for (j = 0; j < 1024; j = j + 1) begin : dmem_alias
+            // These lines allow hierarchical access as dut.DMEM_inst.memory[j] and dut.IMEM_inst.memory[j]
+            wire [31:0] _dmem_dummy = DMEM_inst.mem[j];
+            wire [31:0] _imem_dummy = IMEM_inst.mem[j];
+        end
+    endgenerate
 
 endmodule
