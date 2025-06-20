@@ -288,16 +288,6 @@ module RISCV_Single_Cycle (
         .RD1(),
         .RD2()
     );
-    // Data Memory instance for testbench access
-    Data_Memory DMEM_inst (
-        .clk(clk),
-        .rst(rst),
-        .WE(ex_mem_mem_write),
-        .MemOp(ex_mem_mem_op),
-        .A(ex_mem_alu_result),
-        .WD(ex_mem_write_data),
-        .RD()
-    );
     // Instruction Memory instance for testbench access
     Instruction_Memory IMEM_inst (
         .rst(rst),
