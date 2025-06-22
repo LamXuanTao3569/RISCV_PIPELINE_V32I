@@ -9,7 +9,7 @@ module execute(
     input [4:0] rd_in,
 
     // from forwarding unit
-    input [1:0] ForwardA, ForwardB, ForwardD,
+    input [1:0] ForwardA, ForwardB,
 
     // for forwarding path
     input [31:0] alu_result_mem,

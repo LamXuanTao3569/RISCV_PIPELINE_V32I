@@ -1,13 +1,13 @@
 module Forwarding_Unit(
     input EX_MEM_RegWrite,
     input MEM_WB_RegWrite,
+    input ID_EX_MemWrite,
     input [4:0] ID_EX_rs1,
     input [4:0] ID_EX_rs2,
     input [4:0] EX_MEM_rd,
     input [4:0] MEM_WB_rd,
     output reg [1:0] ForwardA,
-    output reg [1:0] ForwardB,
-    output reg [1:0] ForwardD
+    output reg [1:0] ForwardB
 );
 
     always @(*) begin
@@ -20,22 +20,13 @@ module Forwarding_Unit(
             ForwardA = 2'b00; // No forwarding
         end
 
-        // Forwarding for ALU operand B
-        if (EX_MEM_RegWrite && (EX_MEM_rd != 5'b0) && (EX_MEM_rd == ID_EX_rs2)) begin
+        // Forwarding for ALU operand B - not for stores
+        if (EX_MEM_RegWrite && (EX_MEM_rd != 5'b0) && ~ID_EX_MemWrite && (EX_MEM_rd == ID_EX_rs2)) begin
             ForwardB = 2'b01; // Forward from EX/MEM
-        end else if (MEM_WB_RegWrite && (MEM_WB_rd != 5'b0) && (MEM_WB_rd == ID_EX_rs2)) begin
+        end else if (MEM_WB_RegWrite && (MEM_WB_rd != 5'b0) && ~ID_EX_MemWrite && (MEM_WB_rd == ID_EX_rs2)) begin
             ForwardB = 2'b10; // Forward from MEM/WB
         end else begin
             ForwardB = 2'b00; // No forwarding
-        end
-
-        // Forwarding for store data (store value)
-        if (EX_MEM_RegWrite && (EX_MEM_rd != 5'b0) && (EX_MEM_rd == ID_EX_rs2)) begin
-            ForwardD = 2'b01;
-        end else if (MEM_WB_RegWrite && (MEM_WB_rd != 5'b0) && (MEM_WB_rd == ID_EX_rs2)) begin
-            ForwardD = 2'b10;
-        end else begin
-            ForwardD = 2'b00;
         end
     end
 

@@ -22,7 +22,7 @@ module RISCV_Single_Cycle (
     wire pc_write_en, if_id_write_en, id_ex_bubble, if_id_flush;
     
     // Forwarding Unit -> Forwarding selectors
-    wire [1:0] forward_a_ex, forward_b_ex, forward_d_ex;
+    wire [1:0] forward_a_ex, forward_b_ex;
 
     // WriteBack -> Decode (for register file write)
     wire wb_reg_write_en;
@@ -226,7 +226,7 @@ module RISCV_Single_Cycle (
         .MemOp_in(id_ex_mem_op), .ALUControl_in(id_ex_alu_control), .funct3_in(id_ex_funct3),
         .RD1_in(id_ex_rd1), .RD2_in(id_ex_rd2), .Imm_Ext_in(id_ex_imm_ext), .PC_in(id_ex_pc),
         .PCPlus4_in(id_ex_pc_plus4), .rd_in(id_ex_rd),
-        .ForwardA(forward_a_ex), .ForwardB(forward_b_ex), .ForwardD(forward_d_ex),
+        .ForwardA(forward_a_ex), .ForwardB(forward_b_ex),
         .alu_result_mem(ex_mem_alu_result), .result_wb(wb_result),
         .RegWrite_out(ex_reg_write), .MemWrite_out(ex_mem_write), .ResultSrc_out(ex_result_src), 
         .MemOp_out(ex_mem_op), .rd_out(ex_rd), .PCPlus4_out(ex_pc_plus4), 
@@ -289,13 +289,13 @@ module RISCV_Single_Cycle (
     Forwarding_Unit forwarding_unit (
         .EX_MEM_RegWrite(ex_mem_reg_write),
         .MEM_WB_RegWrite(mem_wb_reg_write),
+        .ID_EX_MemWrite(id_ex_mem_write),
         .ID_EX_rs1(id_ex_rs1),
         .ID_EX_rs2(id_ex_rs2),
         .EX_MEM_rd(ex_mem_rd),
         .MEM_WB_rd(mem_wb_rd),
         .ForwardA(forward_a_ex),
-        .ForwardB(forward_b_ex),
-        .ForwardD(forward_d_ex)
+        .ForwardB(forward_b_ex)
     );
 
     // Top-level outputs for debugging and grading
