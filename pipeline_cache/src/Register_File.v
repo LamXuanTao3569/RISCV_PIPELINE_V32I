@@ -7,8 +7,8 @@ module Register_File(
     reg [31:0] registers [0:31];
     integer i;
 
-    always @(posedge clk or negedge rst) begin
-        if (rst == 1'b0) begin
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
             for (i = 0; i < 32; i = i + 1)
                 registers[i] <= 32'h00000000;
         end

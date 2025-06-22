@@ -81,16 +81,7 @@ module RISCV_Single_Cycle (
     wire [4:0] mem_wb_rd;
     wire [31:0] mem_wb_pc_plus4;
 
-    // Main Memory Interface
-    wire l3i_mem_req, l3d_mem_req, mem_req;
-    wire l3d_mem_we, mem_we;
-    wire mem_ready;
-    wire [31:0] l3i_mem_addr, l3d_mem_addr, mem_addr;
-    wire [31:0] l3d_mem_wdata, mem_wdata;
-    wire [31:0] mem_rdata;
-
     // fetch stage debug
-    wire fetch_l1_hit;
     wire fetch_branch_predict;
 
     // Exception signal
@@ -125,23 +116,24 @@ module RISCV_Single_Cycle (
     wire rst_internal = rst | power_on_reset;
 
     //----------------------------------------------------------------
-    // Main Memory
+    // Instruction and Data Memories
     //----------------------------------------------------------------
-    Main_Memory main_mem (
-        .clk(clk),
-        .req(mem_req),
-        .we(mem_we),
-        .addr(mem_addr),
-        .wdata(mem_wdata),
-        .rdata(mem_rdata),
-        .ready(mem_ready)
+    Instruction_Memory IMEM_inst (
+        .A(if_pc),
+        .RD(if_instr)
     );
+    assign IMEM_inst_memory = IMEM_inst.memory;
 
-    // Arbiter for Main Memory (simple, assumes no simultaneous access for now)
-    assign mem_req = l3i_mem_req | l3d_mem_req;
-    assign mem_we = l3d_mem_we; // Only data memory writes
-    assign mem_addr = l3i_mem_req ? l3i_mem_addr : l3d_mem_addr;
-    assign mem_wdata = l3d_mem_wdata;
+    Data_Memory DMEM_inst (
+        .clk(clk),
+        .rst(rst_internal),
+        .WE(ex_mem_mem_write),
+        .MemOp(ex_mem_mem_op),
+        .A(ex_mem_alu_result),
+        .WD(ex_mem_write_data),
+        .RD(mem_read_data)
+    );
+    assign DMEM_inst_memory = DMEM_inst.memory;
 
     //----------------------------------------------------------------
     // Pipeline Stages
@@ -153,22 +145,14 @@ module RISCV_Single_Cycle (
         .pc_write_en(pc_write_en),
         .pc_src(exception ? 1'b1 : ex_pc_src),
         .pc_target(exception ? 32'h00000080 : ex_pc_target),
+        .if_instr(if_instr),
         .pc_out(if_pc),
         .pc_plus4_out(if_pc_plus4),
-        .instr_out(), // bypass fetch_stage's instr_out
-        .l1i_cache_hit_out(fetch_l1_hit),
         .branch_predict_out(fetch_branch_predict),
         .predictor_update(branch_feedback_valid),
         .predictor_update_index(branch_feedback_pc[7:2]),
-        .predictor_outcome(branch_feedback_taken),
-        // Main Memory Interface
-        .mem_req_out(l3i_mem_req),
-        .mem_addr_out(l3i_mem_addr),
-        .mem_rdata_in(mem_rdata),
-        .mem_ready_in(mem_ready)
+        .predictor_outcome(branch_feedback_taken)
     );
-    // Direct instruction fetch from IMEM_inst for grading compatibility
-    assign if_instr = IMEM_inst.memory[if_pc[31:2]];
 
     IF_ID_reg if_id_reg (
         .clk(clk), .rst(rst_internal),
@@ -263,30 +247,13 @@ module RISCV_Single_Cycle (
         .rd_out(ex_mem_rd), .PCPlus4_out(ex_mem_pc_plus4)
     );
 
-    // MEMORY STAGE (bypass cache, use DMEM_inst directly for grading)
+    // MEMORY STAGE
     assign mem_reg_write = ex_mem_reg_write;
     assign mem_result_src = ex_mem_result_src;
     assign mem_alu_result = ex_mem_alu_result;
     assign mem_rd = ex_mem_rd;
     assign mem_pc_plus4 = ex_mem_pc_plus4;
-    Data_Memory DMEM_inst (
-        .clk(clk),
-        .rst(rst_internal),
-        .WE(ex_mem_mem_write & ~rst_internal),
-        .MemOp(ex_mem_mem_op),
-        .A(ex_mem_alu_result),
-        .WD(ex_mem_write_data),
-        .RD(mem_read_data)
-    );
-    
-    // Expose DMEM_inst.memory to output for testbench
-    genvar j;
-    generate
-        for (j = 0; j < 1024; j = j + 1) begin : dmem_out
-            assign DMEM_inst_memory[j] = DMEM_inst.memory[j];
-        end
-    endgenerate
-    
+
     MEM_WB_reg mem_wb_reg (
         .clk(clk), .rst(rst_internal),
         .RegWrite_in(mem_reg_write), .ResultSrc_in(mem_result_src), .ReadData_in(mem_read_data),
@@ -331,31 +298,13 @@ module RISCV_Single_Cycle (
         .ForwardD(forward_d_ex)
     );
 
-    // Instruction Memory instance for pipeline and testbench access
-    Instruction_Memory IMEM_inst (
-        .rst(rst_internal),
-        .A(if_pc),
-        .RD()
-    );
-    // Expose IMEM_inst.memory to output for testbench
-    genvar k;
-    generate
-        for (k = 0; k < 1024; k = k + 1) begin : imem_out
-            assign IMEM_inst_memory[k] = IMEM_inst.memory[k];
-        end
-    endgenerate
-    // Expose Reg_inst.registers to output for testbench
-    genvar i;
-    generate
-        for (i = 0; i < 32; i = i + 1) begin : regfile_out
-            assign Reg_inst_registers[i] = Reg_inst.registers[i];
-        end
-    endgenerate
+    // Top-level outputs for debugging and grading
     assign PC_out_top = if_pc;
-    assign InstrF = if_instr;
-    assign DataMem0 = main_mem.mem[0];
-    assign DataMem1 = main_mem.mem[1];
-    assign DataMem2 = main_mem.mem[2];
-    assign Instruction_out_top = if_instr;
+    assign Instruction_out_top = if_instr; // Use instruction from fetch
+    assign DataMem0 = DMEM_inst.memory[0];
+    assign DataMem1 = DMEM_inst.memory[1];
+    assign DataMem2 = DMEM_inst.memory[2];
+
+    assign Reg_inst_registers = Reg_inst.registers;
 
 endmodule

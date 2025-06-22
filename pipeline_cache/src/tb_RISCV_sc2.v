@@ -61,27 +61,30 @@ module tb_RISCV_sc2;
     end
 
     initial begin
-        $dumpfile("wave.vcd");
-        $dumpvars(0, tb_RISCV_sc2);
-        $readmemh("./mem/imem2.hex", dut.IMEM_inst.memory);
-        $readmemh("./mem/dmem_init2.hex", dut.DMEM_inst.memory);
-    end
-    // Reset and simulation control
-    initial begin
-        clk = 0;
-        i = 0;
-          // Open and verify Data Memory
-        $display("\n--- Verifying Data Memory ---");
-        fd = $fopen("./mem/golden_output2.txt", "r");
-        if (fd == 0) begin
-            $display("❌ ERROR: Cannot open golden_output2.txt");
-            $finish;
-        end
+    $dumpfile("wave.vcd");
+    $dumpvars(0, tb_RISCV_sc2);
+    $readmemh("./mem/imem2.hex", dut.IMEM_inst.memory);
+    $readmemh("./mem/dmem_init2.hex", dut.DMEM_inst.memory);
 
-        while (!$feof(fd)) begin
-            line = "";
-            status = $fgets(line, fd); // Read one line
-            dummy = $sscanf(line, "PC = %h, x0 = %h, x1 = %h, x2 = %h, x3 = %h, x4 = %h, x5 = %h, x6 = %h, x7 = %h, x8 = %h, x9 = %h, x10 = %h, x11 = %h, x12 = %h, x13 = %h, x14 = %h, x15 = %h, x16 = %h, x17 = %h, x18 = %h, x19 = %h, x20 = %h, x21 = %h, x22 = %h, x23 = %h>
+    clk = 0;
+    rst_n = 0;
+    inst_cnt = 0;
+    timeout_cnt = 0;
+    err_count = 0;
+    flag = 0;
+
+    // Open and verify Data Memory
+    $display("\n--- Verifying Data Memory ---");
+    fd = $fopen("./mem/golden_output2.txt", "r");
+    if (fd == 0) begin
+        $display("❌ ERROR: Cannot open golden_output2.txt");
+        $finish;
+    end
+
+    while (!$feof(fd)) begin
+        line = "";
+        status = $fgets(line, fd);
+        dummy = $sscanf(line, "PC = %h, x0 = %h, x1 = %h, x2 = %h, x3 = %h, x4 = %h, x5 = %h, x6 = %h, x7 = %h, x8 = %h, x9 = %h, x10 = %h, x11 = %h, x12 = %h, x13 = %h, x14 = %h, x15 = %h, x16 = %h, x17 = %h, x18 = %h, x19 = %h, x20 = %h, x21 = %h, x22 = %h, x23 = %h, x24 = %h, x25 = %h, x26 = %h, x27 = %h, x28 = %h, x29 = %h, x30 = %h, x31 = %h, Dmem[0] = %h, Dmem[1] = %h, Dmem[2] = %h, Dmem[3] = %h, Dmem[4] = %h, Dmem[5] = %h, Dmem[6] = %h, Dmem[7] = %h, Dmem[8] = %h, Dmem[9] = %h, Dmem[10] = %h, Dmem[11] = %h, Dmem[12] = %h, Dmem[13] = %h, Dmem[14] = %h, Dmem[15] = %h, Dmem[16] = %h, Dmem[17] = %h, Dmem[18] = %h, Dmem[19] = %h, Dmem[20] = %h, Dmem[21] = %h, Dmem[22] = %h, Dmem[23] = %h, Dmem[24] = %h, Dmem[25] = %h, Dmem[26] = %h, Dmem[27] = %h, Dmem[28] = %h, Dmem[29] = %h, Dmem[30] = %h, Dmem[31] = %h, Dmem[32] = %h, Dmem[33] = %h, Dmem[34] = %h, Dmem[35] = %h, Dmem[36] = %h, Dmem[37] = %h, Dmem[38] = %h, Dmem[39] = %h, Dmem[40] = %h, Dmem[41] = %h, Dmem[42] = %h, Dmem[43] = %h, Dmem[44] = %h, Dmem[45] = %h, Dmem[46] = %h, Dmem[47] = %h, Dmem[48] = %h, Dmem[49] = %h, Dmem[50] = %h, Dmem[51] = %h, Dmem[52] = %h, Dmem[53] = %h, Dmem[54] = %h, Dmem[55] = %h, Dmem[56] = %h, Dmem[57] = %h, Dmem[58] = %h, Dmem[59] = %h, Dmem[60] = %h, Dmem[61] = %h, Dmem[62] = %h, Dmem[63] = %h, Dmem[64] = %h, Dmem[65] = %h, Dmem[66] = %h, Dmem[67] = %h, Dmem[68] = %h, Dmem[69] = %h, Dmem[70] = %h, Dmem[71] = %h, Dmem[72] = %h, Dmem[73] = %h, Dmem[74] = %h, Dmem[75] = %h, Dmem[76] = %h, Dmem[77] = %h, Dmem[78] = %h, Dmem[79] = %h, Dmem[80] = %h, Dmem[81] = %h, Dmem[82] = %h, Dmem[83] = %h, Dmem[84] = %h, Dmem[85] = %h, Dmem[86] = %h, Dmem[87] = %h, Dmem[88] = %h, Dmem[89] = %h, Dmem[90] = %h, Dmem[91] = %h, Dmem[92] = %h, Dmem[93] = %h, Dmem[94] = %h, Dmem[95] = %h, Dmem[96] = %h, Dmem[97] = %h, Dmem[98] = %h, Dmem[99] = %h, Dmem[100] = %h, Dmem[101] = %h, Dmem[102] = %h, Dmem[103] = %h, Dmem[104] = %h, Dmem[105] = %h, Dmem[106] = %h, Dmem[107] = %h, Dmem[108] = %h, Dmem[109] = %h, Dmem[110] = %h, Dmem[111] = %h, Dmem[112] = %h, Dmem[113] = %h, Dmem[114] = %h, Dmem[115] = %h, Dmem[116] = %h, Dmem[117] = %h, Dmem[118] = %h, Dmem[119] = %h, Dmem[120] = %h, Dmem[121] = %h, Dmem[122] = %h, Dmem[123] = %h, Dmem[124] = %h, Dmem[125] = %h, Dmem[126] = %h, Dmem[127] = %h, Dmem[128] = %h, Dmem[129] = %h, Dmem[130] = %h, Dmem[131] = %h, Dmem[132] = %h, Dmem[133] = %h, Dmem[134] = %h, Dmem[135] = %h, Dmem[136] = %h, Dmem[137] = %h, Dmem[138] = %h, Dmem[139] = %h, Dmem[140] = %h, Dmem[141] = %h, Dmem[142] = %h, Dmem[143] = %h, Dmem[144] = %h, Dmem[145] = %h, Dmem[146] = %h, Dmem[147] = %h, Dmem[148] = %h, Dmem[149] = %h, Dmem[150] = %h, Dmem[151] = %h, Dmem[152] = %h, Dmem[153] = %h, Dmem[154] = %h, Dmem[155] = %h, Dmem[156] = %h, Dmem[157] = %h, Dmem[158] = %h, Dmem[159] = %h, Dmem[160] = %h, Dmem[161] = %h, Dmem[162] = %h, Dmem[163] = %h, Dmem[164] = %h, Dmem[165] = %h, Dmem[166] = %h, Dmem[167] = %h, Dmem[168] = %h, Dmem[169] = %h, Dmem[170] = %h, Dmem[171] = %h, Dmem[172] = %h, Dmem[173] = %h, Dmem[174] = %h, Dmem[175] = %h, Dmem[176] = %h, Dmem[177] = %h, Dmem[178] = %h, Dmem[179] = %h, Dmem[180] = %h, Dmem[181] = %h, Dmem[182] = %h, Dmem[183] = %h, Dmem[184] = %h, Dmem[185] = %h, Dmem[186] = %h, Dmem[187] = %h, Dmem[188] = %h, Dmem[189] = %h, Dmem[190] = %h, Dmem[191] = %h, Dmem[192] = %h, Dmem[193] = %h, Dmem[194] = %h, Dmem[195] = %h, Dmem[196] = %h, Dmem[197] = %h, Dmem[198] = %h, Dmem[199] = %h, Dmem[200] = %h, Dmem[201] = %h, Dmem[202] = %h, Dmem[203] = %h, Dmem[204] = %h, Dmem[205] = %h, Dmem[206] = %h, Dmem[207] = %h, Dmem[208] = %h, Dmem[209] = %h, Dmem[210] = %h, Dmem[211] = %h, Dmem[212] = %h, Dmem[213] = %h, Dmem[214] = %h, Dmem[215] = %h, Dmem[216] = %h, Dmem[217] = %h, Dmem[218] = %h, Dmem[219] = %h, Dmem[220] = %h, Dmem[221] = %h, Dmem[222] = %h, Dmem[223] = %h, Dmem[224] = %h, Dmem[225] = %h, Dmem[226] = %h, Dmem[227] = %h, Dmem[228] = %h, Dmem[229] = %h, Dmem[230] = %h, Dmem[231] = %h, Dmem[232] = %h, Dmem[233] = %h, Dmem[234] = %h, Dmem[235] = %h, Dmem[236] = %h, Dmem[237] = %h, Dmem[238] = %h, Dmem[239] = %h, Dmem[240] = %h, Dmem[241] = %h, Dmem[242] = %h, Dmem[243] = %h, Dmem[244] = %h, Dmem[245] = %h, Dmem[246] = %h, Dmem[247] = %h, Dmem[248] = %h, Dmem[249] = %h, Dmem[250] = %h, Dmem[251] = %h, Dmem[252] = %h, Dmem[253] = %h, Dmem[254] = %h, Dmem[255] = %h",
             golden_pc_temp, golden_x_temp[0], golden_x_temp[1], golden_x_temp[2], golden_x_temp[3], golden_x_temp[4], golden_x_temp[5],
             golden_x_temp[6], golden_x_temp[7], golden_x_temp[8], golden_x_temp[9], golden_x_temp[10], golden_x_temp[11],
             golden_x_temp[12], golden_x_temp[13], golden_x_temp[14], golden_x_temp[15], golden_x_temp[16], golden_x_temp[17],
@@ -141,55 +144,45 @@ module tb_RISCV_sc2;
             golden_dmem_temp[250], golden_dmem_temp[251], golden_dmem_temp[252], golden_dmem_temp[253], golden_dmem_temp[254],
             golden_dmem_temp[255]);
 
-            if(i < NUMBER_OF_CYCLES) begin
-                golden_pc[i] = golden_pc_temp;
-                for (integer j = 0; j < 32; j++) begin
-                    golden_x[j][i] = golden_x_temp[j];
-                end
-                for (integer j = 0; j < 256; j++) begin
-                    golden_dmem[j][i] = golden_dmem_temp[j];
-                end
-                i = i + 1;
+        if (i < NUMBER_OF_CYCLES) begin
+            golden_pc[i] = golden_pc_temp;
+            for (integer j = 0; j < 32; j++) begin
+                golden_x[j][i] = golden_x_temp[j];
             end
-
-        // Now you can compare this expected result with your DUT
-
+            for (integer j = 0; j < 256; j++) begin
+                golden_dmem[j][i] = golden_dmem_temp[j];
+            end
+            i = i + 1;
         end
-        $fclose(fd);
-
-        rst_n = 0;
-        inst_cnt = 0;
-        timeout_cnt = 0;
-        err_count = 0;
-
-
-        #20;
-        rst_n = 1;
-
-        // // Wait until Instruction fetch stops (Instruction bus = xxxxxxxx)
-        // while (dut.Instruction_out_top !== 32'h00000063) begin
-        //     @(posedge clk);
-        //     inst_cnt = inst_cnt + 1;
-        //     timeout_cnt = timeout_cnt + 1;
-
-        //     if (timeout_cnt > 10000) begin
-        //         $display("❗ ERROR: Simulation timed out after 10000 cycles!");
-        //         $finish;
-        //     end
-        // end
-
-        // $display("✅ Program execution completed after %0d instructions.", inst_cnt);
-
-
-
-        #200;
-
-        if (err_count == 0)
-            $display("🎉 All memory contents match golden output! All tests passed.");
-        else
-            $display("❗ Found %0d mismatches in Data Memory.", err_count);
-
-        $finish;
     end
+    $fclose(fd);
+
+    #20;
+    rst_n = 1;
+
+    // Wait until the infinite loop is reached (Instruction = 00000063)
+    while (dut.Instruction_out_top !== 32'h00000063) begin
+        @(posedge clk);
+        inst_cnt = inst_cnt + 1;
+        timeout_cnt = timeout_cnt + 1;
+
+        if (timeout_cnt > 10000) begin
+            $display("❗ ERROR: Simulation timed out after 10000 cycles!");
+            $finish;
+        end
+    end
+
+    $display("✅ Program execution completed after %0d instructions.", inst_cnt);
+
+    // Run a few more cycles to ensure the loop is stable
+    repeat (5) @(posedge clk);
+
+    if (err_count == 0)
+        $display("🎉 All memory contents match golden output! All tests passed.");
+    else
+        $display("❗ Found %0d mismatches in Data Memory.", err_count);
+
+    $finish;
+end
 
 endmodule
