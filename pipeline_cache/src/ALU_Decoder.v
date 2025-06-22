@@ -8,7 +8,24 @@ module ALU_Decoder(
 
     always @(*) begin
         case (ALUOp)
-            2'b00: ALUControl = 4'b0000; // add (for load/store, auipc, lui, jal, jalr)
+            2'b00: begin // For LW, SW, ADDI
+                case(funct3)
+                    3'b000: ALUControl = 4'b0000; // add, addi
+                    3'b001: ALUControl = 4'b0010; // slli
+                    3'b010: ALUControl = 4'b0110; // slti
+                    3'b011: ALUControl = 4'b0111; // sltiu
+                    3'b100: ALUControl = 4'b0100; // xori
+                    3'b101: begin
+                        if (funct7_5)
+                            ALUControl = 4'b0011; // srai
+                        else
+                            ALUControl = 4'b0101; // srli
+                    end
+                    3'b110: ALUControl = 4'b1000; // ori
+                    3'b111: ALUControl = 4'b1001; // andi
+                    default: ALUControl = 4'b0000;
+                endcase
+            end
             2'b01: begin // Branch
                 case (funct3)
                     3'b000: ALUControl = 4'b0001; // beq (sub)
@@ -28,20 +45,20 @@ module ALU_Decoder(
                         else if (funct7_5)
                             ALUControl = 4'b0001; // sub
                         else
-                            ALUControl = 4'b0000; // add, addi
+                            ALUControl = 4'b0000; // add
                     end
-                    3'b001: ALUControl = 4'b0010; // sll, slli
-                    3'b010: ALUControl = 4'b0110; // slt, slti
-                    3'b011: ALUControl = 4'b0111; // sltu, sltiu
-                    3'b100: ALUControl = 4'b0100; // xor, xori
+                    3'b001: ALUControl = 4'b0010; // sll
+                    3'b010: ALUControl = 4'b0110; // slt
+                    3'b011: ALUControl = 4'b0111; // sltu
+                    3'b100: ALUControl = 4'b0100; // xor
                     3'b101: begin
                         if (funct7_5)
-                            ALUControl = 4'b0011; // sra, srai
+                            ALUControl = 4'b0011; // sra
                         else
-                            ALUControl = 4'b0101; // srl, srli
+                            ALUControl = 4'b0101; // srl
                     end
-                    3'b110: ALUControl = 4'b1000; // or, ori
-                    3'b111: ALUControl = 4'b1001; // and, andi
+                    3'b110: ALUControl = 4'b1000; // or
+                    3'b111: ALUControl = 4'b1001; // and
                     default: ALUControl = 4'b0000;
                 endcase
             end
