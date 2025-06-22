@@ -28,7 +28,7 @@ module Main_Decoder(
                 Jump = 1'b0;
                 ImmSrc = 2'b00;
                 MemOp = 2'b00;  // Không dùng
-                ALUOp = 2'b10;
+                ALUOp = 2'b00;
             end
             7'b0000011: begin // I-type (load)
                 RegWrite = 1'b1;
