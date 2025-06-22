@@ -1,5 +1,5 @@
 module decode(
-    input clk, rst,
+    input clk, rst_n,
     input [31:0] instr_in,
     
     // Write-back signals for register file
