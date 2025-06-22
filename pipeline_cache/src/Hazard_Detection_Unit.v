@@ -11,7 +11,7 @@ module Hazard_Detection_Unit(
 );
 
     wire load_use_hazard;
-    assign load_use_hazard = ID_EX_MemRead && ((ID_EX_rd == IF_ID_rs1) || (ID_EX_rd == IF_ID_rs2));
+    assign load_use_hazard = ID_EX_MemRead && (ID_EX_rd != 5'b0) && ((ID_EX_rd == IF_ID_rs1) || (ID_EX_rd == IF_ID_rs2));
 
     always @(*) begin
         PCWrite = 1;

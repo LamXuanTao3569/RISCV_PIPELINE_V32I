@@ -14,7 +14,7 @@ module Data_Memory(
     end
 
     always @(posedge clk) begin
-        if (WE && $time > 0) begin
+        if (WE) begin
             case (MemOp)
                 2'b00: begin // sb
                     case (A[1:0])

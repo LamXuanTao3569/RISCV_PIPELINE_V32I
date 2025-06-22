@@ -103,10 +103,10 @@ module RISCV_Single_Cycle (
     wire pipeline_flush = rst | ~flushed_after_reset;
 
     // Power-on reset logic to ensure pipeline is held in reset for first 10 cycles
-    reg [3:0] por_counter = 4'd0;
+    reg [4:0] por_counter = 5'd0;
     reg power_on_reset = 1'b1;
     always @(posedge clk) begin
-        if (por_counter < 4'd10) begin
+        if (por_counter < 5'd20) begin
             por_counter <= por_counter + 1;
             power_on_reset <= 1'b1;
         end else begin
@@ -255,7 +255,7 @@ module RISCV_Single_Cycle (
     assign mem_pc_plus4 = ex_mem_pc_plus4;
 
     MEM_WB_reg mem_wb_reg (
-        .clk(clk), .rst(rst_internal),
+        .clk(clk), .rst(rst_internal), .flush(pipeline_flush),
         .RegWrite_in(mem_reg_write), .ResultSrc_in(mem_result_src), .ReadData_in(mem_read_data),
         .ALU_Result_in(mem_alu_result), .rd_in(mem_rd), .PCPlus4_in(mem_pc_plus4),
         .RegWrite_out(mem_wb_reg_write), .ResultSrc_out(mem_wb_result_src), .ReadData_out(mem_wb_read_data),

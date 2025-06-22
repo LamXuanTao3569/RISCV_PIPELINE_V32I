@@ -1,5 +1,5 @@
 module MEM_WB_reg (
-    input clk, rst,
+    input clk, rst, flush,
 
     // Control signals from Memory
     input RegWrite_in,
@@ -20,7 +20,7 @@ module MEM_WB_reg (
     output reg [31:0] PCPlus4_out
 );
     always @(posedge clk or posedge rst) begin
-        if (rst) begin
+        if (rst || flush) begin
             RegWrite_out <= 1'b0;
             ResultSrc_out <= 2'b0;
             ReadData_out <= 32'b0;
