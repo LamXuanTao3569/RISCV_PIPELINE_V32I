@@ -1,5 +1,5 @@
 module decode(
-    input clk, rst_n,
+    input clk, rst_n, flush,
     input [31:0] instr_in,
     
     // Write-back signals for register file
@@ -79,7 +79,7 @@ module decode(
                 exception_reg = 1'b1;
         endcase
     end
-    assign exception_out = exception_reg;
+    assign exception_out = exception_reg & ~flush;
 
     assign rd1_out = rd1_in;
     assign rd2_out = rd2_in;

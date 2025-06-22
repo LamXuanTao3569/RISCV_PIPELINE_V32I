@@ -174,7 +174,7 @@ module RISCV_Single_Cycle (
 
     // DECODE STAGE
     decode decode_stage (
-        .clk(clk), .rst_n(rst_n),
+        .clk(clk), .rst_n(rst_n), .flush(pipeline_flush),
         .instr_in(if_id_instr),
         .reg_write_en_wb(wb_reg_write_en),
         .rd_wb(wb_rd),
