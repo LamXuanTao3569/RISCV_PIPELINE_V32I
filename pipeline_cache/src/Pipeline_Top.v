@@ -230,7 +230,7 @@ module RISCV_Single_Cycle (
         .alu_result_mem(ex_mem_alu_result), .result_wb(wb_result),
         .RegWrite_out(ex_reg_write), .MemWrite_out(ex_mem_write), .ResultSrc_out(ex_result_src), 
         .MemOp_out(ex_mem_op), .rd_out(ex_rd), .PCPlus4_out(ex_pc_plus4), 
-        .WriteData_out(ex_mem_write_data), .alu_result_out(ex_alu_result),
+        .WriteData_out(ex_write_data), .alu_result_out(ex_alu_result),
         .pc_src_out(ex_pc_src), .pc_target_out(ex_pc_target),
         .branch_feedback_valid(branch_feedback_valid),
         .branch_feedback_pc(branch_feedback_pc),
@@ -240,7 +240,7 @@ module RISCV_Single_Cycle (
     EX_MEM_reg ex_mem_reg (
         .clk(clk), .rst(rst_internal),
         .RegWrite_in(ex_reg_write), .MemWrite_in(ex_mem_write), .ResultSrc_in(ex_result_src),
-        .MemOp_in(ex_mem_op), .ALU_Result_in(ex_alu_result), .WriteData_in(ex_mem_write_data), 
+        .MemOp_in(ex_mem_op), .ALU_Result_in(ex_alu_result), .WriteData_in(ex_write_data), 
         .rd_in(ex_rd), .PCPlus4_in(ex_pc_plus4),
         .RegWrite_out(ex_mem_reg_write), .MemWrite_out(ex_mem_mem_write), .ResultSrc_out(ex_mem_result_src),
         .MemOp_out(ex_mem_mem_op), .ALU_Result_out(ex_mem_alu_result), .WriteData_out(ex_mem_write_data), 

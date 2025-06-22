@@ -34,7 +34,7 @@ module tb_RISCV_sc2;
         .clk(clk),
         .rst_n(rst_n)
     );
-
+	
     // Clock generation
     always #5 clk = ~clk;
 
