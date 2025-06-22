@@ -1,5 +1,5 @@
 module ID_EX_reg (
-    input clk, rst,
+    input clk, rst_n,
     input bubble, // To insert a NOP from Hazard Unit
     input flush,  // To clear the register
 
@@ -47,26 +47,8 @@ module ID_EX_reg (
     reg [31:0] src_a;
     wire [31:0] src_b, alu_result;
 
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
-            RegWrite_out <= 1'b0;
-            ALUSrc_out <= 1'b0;
-            MemWrite_out <= 1'b0;
-            ResultSrc_out <= 2'b0;
-            Branch_out <= 1'b0;
-            Jump_out <= 1'b0;
-            ALUControl_out <= 4'b0;
-            MemOp_out <= 2'b0;
-            funct3_out <= 3'b0;
-            PC_out <= 32'b0;
-            PCPlus4_out <= 32'b0;
-            RD1_out <= 32'b0;
-            RD2_out <= 32'b0;
-            Imm_Ext_out <= 32'b0;
-            rs1_out <= 5'b0;
-            rs2_out <= 5'b0;
-            rd_out <= 5'b0;
-        end else if (flush || bubble) begin
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n || flush || bubble) begin
             RegWrite_out <= 1'b0;
             ALUSrc_out <= 1'b0;
             MemWrite_out <= 1'b0;

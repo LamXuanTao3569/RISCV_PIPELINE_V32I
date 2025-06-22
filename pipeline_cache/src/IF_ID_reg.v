@@ -1,5 +1,5 @@
 module IF_ID_reg (
-    input clk, rst,
+    input clk, rst_n,
     input if_id_write,
     input if_id_flush,
     input [31:0] pc_in,
@@ -9,14 +9,14 @@ module IF_ID_reg (
     output reg [31:0] instr_out,
     output reg [31:0] pc_plus4_out
 );
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
             pc_out <= 32'b0;
             instr_out <= 32'b0; // NOP (illegal instruction)
             pc_plus4_out <= 32'b0;
         end else if (if_id_flush) begin
             pc_out <= 32'b0;
-            instr_out <= 32'b0;
+            instr_out <= 32'h00000013; // nop
             pc_plus4_out <= 32'b0;
         end else if (if_id_write) begin
             pc_out <= pc_in;

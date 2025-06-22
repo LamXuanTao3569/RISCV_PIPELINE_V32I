@@ -1,5 +1,5 @@
 module EX_MEM_reg (
-    input clk, rst,
+    input clk, rst_n,
 
     // Control signals from Execute
     input RegWrite_in,
@@ -23,8 +23,8 @@ module EX_MEM_reg (
     output reg [4:0] rd_out,
     output reg [31:0] PCPlus4_out
 );
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
             RegWrite_out <= 1'b0;
             MemWrite_out <= 1'b0;
             ResultSrc_out <= 2'b0;

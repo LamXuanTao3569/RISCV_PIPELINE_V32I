@@ -1,5 +1,5 @@
 module Register_File(
-    input clk, rst, WE3,
+    input clk, rst_n, WE3,
     input [4:0] A1, A2, A3,
     input [31:0] WD3,
     output [31:0] RD1, RD2
@@ -7,8 +7,8 @@ module Register_File(
     reg [31:0] registers [0:31];
     integer i;
 
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
             for (i = 0; i < 32; i = i + 1)
                 registers[i] <= 32'h00000000;
         end

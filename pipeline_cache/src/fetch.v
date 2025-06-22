@@ -1,5 +1,5 @@
 module fetch(
-    input clk, rst,
+    input clk, rst_n,
     input pc_write_en,
     input pc_src, // mux select for PC from EX stage (for branches/jumps)
     input [31:0] pc_target, // branch/jump target from EX stage
@@ -17,8 +17,8 @@ module fetch(
     wire [31:0] pc_plus4;
     
     // PC register
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
             pc_reg <= 32'h0;
         end else if (pc_write_en) begin
             pc_reg <= pc_next;
@@ -36,8 +36,8 @@ module fetch(
     wire [5:0] predictor_index = pc_reg[7:2];
 
     // Predictor update logic (to be triggered by execute stage feedback)
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
             integer i;
             for (i = 0; i < 64; i = i + 1) predictor_table[i] <= 0;
             predictor_correct <= 0;
