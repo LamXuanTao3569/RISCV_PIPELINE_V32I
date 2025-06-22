@@ -15,7 +15,7 @@ module ALU(
 
     always @(*) begin
         case (ALUControl)
-            4'b0000: Result = sum; // add, addi, auipc, lui, jal, jalr, load/store
+            4'b0000: Result = A + B; // add, addi, auipc, lui, jal, jalr, load/store
             4'b0001: Result = sum; // sub (for branch)
             4'b0010: Result = A << B[4:0]; // sll, slli
             4'b0011: Result = $signed(A) >>> B[4:0]; // sra, srai
