@@ -155,15 +155,14 @@ module RISCV_Single_Cycle (
     // Register File instance for pipeline and testbench access
     wire [4:0] rf_A1, rf_A2, rf_A3;
     wire [31:0] rf_WD3, rf_RD1, rf_RD2;
-    wire rf_WE3;
     Register_File Reg_inst (
         .clk(clk),
         .rst_n(rst_n),
-        .WE3(rf_WE3),
+        .WE3(wb_reg_write_en),
         .A1(rf_A1),
         .A2(rf_A2),
-        .A3(rf_A3),
-        .WD3(rf_WD3),
+        .A3(wb_rd),
+        .WD3(wb_result),
         .RD1(rf_RD1),
         .RD2(rf_RD2)
     );
@@ -172,16 +171,10 @@ module RISCV_Single_Cycle (
     decode decode_stage (
         .clk(clk), .rst_n(rst_n), .flush(startup_suppress),
         .instr_in(if_id_instr),
-        .reg_write_en_wb(wb_reg_write_en),
-        .rd_wb(wb_rd),
-        .result_wb(wb_result),
         .rd1_in(rf_RD1),
         .rd2_in(rf_RD2),
         .A1(rf_A1),
         .A2(rf_A2),
-        .A3(rf_A3),
-        .WD3(rf_WD3),
-        .WE3(rf_WE3),
         .RegWrite_out(id_reg_write), .ALUSrc_out(id_alu_src), .MemWrite_out(id_mem_write),
         .ResultSrc_out(id_result_src), .Branch_out(id_branch), .Jump_out(id_jump),
         .ALUControl_out(id_alu_control), .MemOp_out(id_mem_op), .funct3_out(id_funct3),

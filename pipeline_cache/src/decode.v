@@ -2,11 +2,6 @@ module decode(
     input clk, rst_n, flush,
     input [31:0] instr_in,
     
-    // Write-back signals for register file
-    input reg_write_en_wb,
-    input [4:0] rd_wb,
-    input [31:0] result_wb,
-
     // Inputs from ID/EX register
     input [31:0] rd1_in,
     input [31:0] rd2_in,
@@ -29,12 +24,9 @@ module decode(
     output [4:0] rd_out,
     output exception_out,
 
-    // Outputs for Register_File
+    // Outputs for Register_File Read Ports
     output [4:0] A1,
-    output [4:0] A2,
-    output [4:0] A3,
-    output [31:0] WD3,
-    output WE3
+    output [4:0] A2
 );
 
     wire [2:0] imm_src;
@@ -85,8 +77,5 @@ module decode(
     assign rd2_out = rd2_in;
     assign A1 = instr_in[19:15];
     assign A2 = instr_in[24:20];
-    assign A3 = rd_wb;
-    assign WD3 = result_wb;
-    assign WE3 = reg_write_en_wb;
 
 endmodule 
