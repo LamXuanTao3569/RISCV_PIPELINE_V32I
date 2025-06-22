@@ -91,19 +91,15 @@ module RISCV_Single_Cycle (
     wire [31:0] branch_feedback_pc;
     wire branch_feedback_taken;
 
-    // Flush pipeline on taken branches and for the first few cycles on startup
-    reg [2:0] startup_counter = 3'd0;
-    wire startup_flush;
+    // Flush for taken branches
+    wire branch_flush = ex_pc_src;
 
+    // Suppress exception for one cycle at startup to ignore initial garbage
+    reg startup_suppress;
     always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            startup_counter <= 3'd0;
-        end else if (startup_counter < 3'd4) begin
-            startup_counter <= startup_counter + 1;
-        end
+        if (!rst_n) startup_suppress <= 1'b1;
+        else startup_suppress <= 1'b0;
     end
-    assign startup_flush = (startup_counter < 3'd4);
-    assign pipeline_flush = ex_pc_src || startup_flush;
 
     //----------------------------------------------------------------
     // Instruction and Data Memories
@@ -147,7 +143,7 @@ module RISCV_Single_Cycle (
     IF_ID_reg if_id_reg (
         .clk(clk), .rst_n(rst_n),
         .if_id_write(if_id_write_en),
-        .if_id_flush(pipeline_flush),
+        .if_id_flush(branch_flush),
         .pc_in(if_pc),
         .instr_in(if_instr),
         .pc_plus4_in(if_pc_plus4),
@@ -174,7 +170,7 @@ module RISCV_Single_Cycle (
 
     // DECODE STAGE
     decode decode_stage (
-        .clk(clk), .rst_n(rst_n), .flush(pipeline_flush),
+        .clk(clk), .rst_n(rst_n), .flush(startup_suppress),
         .instr_in(if_id_instr),
         .reg_write_en_wb(wb_reg_write_en),
         .rd_wb(wb_rd),
@@ -196,7 +192,7 @@ module RISCV_Single_Cycle (
 
     ID_EX_reg id_ex_reg (
         .clk(clk), .rst_n(rst_n),
-        .bubble(id_ex_bubble), .flush(pipeline_flush),
+        .bubble(id_ex_bubble), .flush(branch_flush),
         .RegWrite_in(id_reg_write), .ALUSrc_in(id_alu_src), .MemWrite_in(id_mem_write),
         .ResultSrc_in(id_result_src), .Branch_in(id_branch), .Jump_in(id_jump),
         .ALUControl_in(id_alu_control), .MemOp_in(id_mem_op), .funct3_in(id_funct3),
@@ -245,7 +241,7 @@ module RISCV_Single_Cycle (
     assign mem_pc_plus4 = ex_mem_pc_plus4;
 
     MEM_WB_reg mem_wb_reg (
-        .clk(clk), .rst_n(rst_n), .flush(pipeline_flush),
+        .clk(clk), .rst_n(rst_n), .flush(branch_flush),
         .RegWrite_in(mem_reg_write), .ResultSrc_in(mem_result_src), .ReadData_in(mem_read_data),
         .ALU_Result_in(mem_alu_result), .rd_in(mem_rd), .PCPlus4_in(mem_pc_plus4),
         .RegWrite_out(mem_wb_reg_write), .ResultSrc_out(mem_wb_result_src), .ReadData_out(mem_wb_read_data),
