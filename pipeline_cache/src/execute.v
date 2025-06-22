@@ -36,7 +36,6 @@ module execute(
     reg [31:0] src_a;
     wire [31:0] src_b, alu_result;
     reg [31:0] forwarded_rd2;
-    reg [31:0] store_data;
 
     // Mux for forwarding operand A
     always @(*) begin
@@ -58,17 +57,7 @@ module execute(
         endcase
     end
     
-    // Mux for store data (store value forwarding)
-    always @(*) begin
-        case (ForwardD)
-            2'b00: store_data = RD2_in;
-            2'b01: store_data = alu_result_mem;
-            2'b10: store_data = result_wb;
-            default: store_data = RD2_in;
-        endcase
-    end
-    
-    assign WriteData_out = store_data;
+    assign WriteData_out = forwarded_rd2;
 
     // Mux for ALU operand B (RD2 or immediate)
     assign src_b = ALUSrc_in ? Imm_Ext_in : forwarded_rd2;
