@@ -91,8 +91,19 @@ module RISCV_Single_Cycle (
     wire [31:0] branch_feedback_pc;
     wire branch_feedback_taken;
 
-    // The pipeline should be flushed on a taken branch
-    assign pipeline_flush = ex_pc_src;
+    // Flush pipeline on taken branches and for the first few cycles on startup
+    reg [2:0] startup_counter = 3'd0;
+    wire startup_flush;
+
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            startup_counter <= 3'd0;
+        end else if (startup_counter < 3'd4) begin
+            startup_counter <= startup_counter + 1;
+        end
+    end
+    assign startup_flush = (startup_counter < 3'd4);
+    assign pipeline_flush = ex_pc_src || startup_flush;
 
     //----------------------------------------------------------------
     // Instruction and Data Memories
