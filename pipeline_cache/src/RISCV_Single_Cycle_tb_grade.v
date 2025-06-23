@@ -56,22 +56,22 @@ module tb_RISCV_Single_Cycle;
         fd = $fopen("./mem/golden_output.txt", "r");
         if (fd != 0) begin
             $display("\n--- Verifying Data Memory ---");
-            while (!$feof(fd)) begin
-                line = "";
-                code = $fgets(line, fd);
-                if (code > 0) begin
-                    if ($sscanf(line, "Dmem[%d] = %d", addr, expected) == 2) begin
-                        actual = dut.DMEM_inst.memory[addr >> 2];
-                        if (actual !== expected) begin
-                            $display("❌ Mismatch at Dmem[%0d]: expected %0d, got %0d", addr, expected, actual);
-                            err_count++;
-                        end else begin
-                            $display("✅ Dmem[%0d] = %0d OK", addr, actual);
-                        end
+        while (!$feof(fd)) begin
+            line = "";
+            code = $fgets(line, fd);
+            if (code > 0) begin
+                if ($sscanf(line, "Dmem[%d] = %d", addr, expected) == 2) begin
+                    actual = dut.DMEM_inst.memory[addr >> 2];
+                    if (actual !== expected) begin
+                        $display("❌ Mismatch at Dmem[%0d]: expected %0d, got %0d", addr, expected, actual);
+                        err_count++;
+                    end else begin
+                        $display("✅ Dmem[%0d] = %0d OK", addr, actual);
                     end
                 end
             end
-            $fclose(fd);
+        end
+        $fclose(fd);
         end else begin
             $display("No golden_output.txt found. Generating golden output only.");
         end

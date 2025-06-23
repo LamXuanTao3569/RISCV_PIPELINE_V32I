@@ -1,14 +1,13 @@
-module PC_Module(clk, rst, PC, PC_Next, StallF);
-    input clk, rst, StallF; // Thêm StallF
-    input [31:0] PC_Next;
-    output [31:0] PC;
-    reg [31:0] PC;
-
-    always @(posedge clk or negedge rst) begin
-        if (rst == 1'b0)
-            PC <= {32{1'b0}};
+module PC_Module(
+    input clk, rst_n, StallF,
+    input [31:0] PC_Next,
+    output reg [31:0] PC
+);
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            PC <= 32'h0;
         else if (StallF)
-            PC <= PC; // Giữ nguyên nếu stall
+            PC <= PC;
         else
             PC <= PC_Next;
     end

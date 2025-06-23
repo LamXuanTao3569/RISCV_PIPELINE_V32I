@@ -1,5 +1,6 @@
 module decode(
     input clk, rst_n, flush,
+    input ID_EX_Bubble_in, // Input for stall signal
     input [31:0] instr_in,
     
     // Inputs from ID/EX register
@@ -23,6 +24,7 @@ module decode(
     output [4:0] rs2_out,
     output [4:0] rd_out,
     output exception_out,
+    output [6:0] opcode_out,
 
     // Outputs for Register_File Read Ports
     output [4:0] A1,
@@ -36,18 +38,23 @@ module decode(
     wire [1:0] alu_op;
     reg exception_reg;
 
+    // Internal wires for pre-bubble control signals
+    wire pre_RegWrite, pre_ALUSrc, pre_MemWrite, pre_Branch, pre_Jump;
+    wire [1:0] pre_ResultSrc, pre_MemOp;
+    wire [3:0] pre_ALUControl;
+
     Main_Decoder control_unit (
         .Op(instr_in[6:0]),
         .funct3(instr_in[14:12]),
-        .RegWrite(RegWrite_out),
+        .RegWrite(pre_RegWrite),
         .ImmSrc(imm_src),
-        .ALUSrc(ALUSrc_out),
-        .MemWrite(MemWrite_out),
-        .ResultSrc(ResultSrc_out),
-        .Branch(Branch_out),
-        .Jump(Jump_out),
+        .ALUSrc(pre_ALUSrc),
+        .MemWrite(pre_MemWrite),
+        .ResultSrc(pre_ResultSrc),
+        .Branch(pre_Branch),
+        .Jump(pre_Jump),
         .ALUOp(alu_op),
-        .MemOp(MemOp_out)
+        .MemOp(pre_MemOp)
     );
 
     // ALU Decoder to convert ALUOp to ALUControl
@@ -55,7 +62,7 @@ module decode(
         .ALUOp(alu_op),
         .funct3(instr_in[14:12]),
         .funct7_5(funct7_5),
-        .ALUControl(ALUControl_out)
+        .ALUControl(pre_ALUControl)
     );
 
     Sign_Extend sign_extend (
@@ -68,6 +75,7 @@ module decode(
     assign rs2_out = instr_in[24:20];
     assign rd_out = instr_in[11:7];
     assign funct3_out = instr_in[14:12];
+    assign opcode_out = instr_in[6:0];
 
     // Exception detection: illegal instruction (opcode not recognized)
     always @(*) begin
@@ -79,6 +87,16 @@ module decode(
         endcase
     end
     assign exception_out = exception_reg & ~flush;
+
+    // Mux control signals with bubble to create a NOP
+    assign RegWrite_out = pre_RegWrite & ~ID_EX_Bubble_in;
+    assign ALUSrc_out = pre_ALUSrc & ~ID_EX_Bubble_in;
+    assign MemWrite_out = pre_MemWrite & ~ID_EX_Bubble_in;
+    assign Branch_out = pre_Branch & ~ID_EX_Bubble_in;
+    assign Jump_out = pre_Jump & ~ID_EX_Bubble_in;
+    assign ResultSrc_out = ID_EX_Bubble_in ? 2'b0 : pre_ResultSrc;
+    assign MemOp_out = ID_EX_Bubble_in ? 2'b0 : pre_MemOp;
+    assign ALUControl_out = ID_EX_Bubble_in ? 4'b0 : pre_ALUControl;
 
     assign rd1_out = rd1_in;
     assign rd2_out = rd2_in;

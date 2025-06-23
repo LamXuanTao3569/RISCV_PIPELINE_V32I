@@ -8,6 +8,7 @@ module execute(
     input [2:0] funct3_in,
     input [31:0] RD1_in, RD2_in, Imm_Ext_in, PC_in, PCPlus4_in,
     input [4:0] rd_in,
+    input [6:0] opcode_in,
 
     // from forwarding unit
     input [1:0] ForwardA, ForwardB,
@@ -67,6 +68,7 @@ module execute(
         .A(src_a),
         .B(src_b),
         .ALUControl(ALUControl_in),
+        .opcode(opcode_in),
         .Result(alu_result),
         .Zero(zero_flag)
     );
@@ -88,9 +90,10 @@ module execute(
     wire branch_taken = Branch_in & branch_taken_reg;
 
     assign pc_src_out = branch_taken || Jump_in;
-    // For JALR, the target is in the ALU result (rs1 + imm). 
+    // For JALR, the target is in the ALU result (rs1 + imm) with LSB cleared.
     // For JAL and branches, it's PC + imm.
-    assign pc_target_out = (Jump_in && ALUSrc_in) ? alu_result : (PC_in + Imm_Ext_in);
+    wire [31:0] jalr_target = alu_result & 32'hFFFFFFFE;
+    assign pc_target_out = (Jump_in && ALUSrc_in) ? jalr_target : (PC_in + Imm_Ext_in);
     assign branch_feedback_valid = Branch_in;
     assign branch_feedback_pc = PC_in;
     assign branch_feedback_taken = branch_taken;

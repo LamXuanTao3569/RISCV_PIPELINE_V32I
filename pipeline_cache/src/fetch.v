@@ -33,5 +33,6 @@ module fetch(
     // PC selection logic - disable branch prediction for now
     wire is_branch = (if_instr[6:0] == 7'b1100011); // B-type opcode
     assign pc_next = (pc_src) ? pc_target : pc_plus4;
+    assign branch_predict_out = 1'b0;
 
 endmodule 

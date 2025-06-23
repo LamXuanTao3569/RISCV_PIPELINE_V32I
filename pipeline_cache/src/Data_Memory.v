@@ -1,5 +1,5 @@
 module Data_Memory(
-    input clk, rst, WE,
+    input clk, rst_n, WE,
     input [1:0] MemOp,
     input [31:0] A, WD,
     output reg [31:0] RD
@@ -37,7 +37,7 @@ module Data_Memory(
     end
 
     always @(*) begin
-        if (rst == 1'b0)
+        if (rst_n == 1'b0)
             RD = 32'h0;
         else begin
             case (MemOp)

@@ -23,6 +23,7 @@ module ID_EX_reg (
     input [4:0] rs1_in,
     input [4:0] rs2_in,
     input [4:0] rd_in,
+    input [6:0] opcode_in,
 
     // Outputs to Execute
     output reg RegWrite_out,
@@ -41,7 +42,8 @@ module ID_EX_reg (
     output reg [31:0] Imm_Ext_out,
     output reg [4:0] rs1_out,
     output reg [4:0] rs2_out,
-    output reg [4:0] rd_out
+    output reg [4:0] rd_out,
+    output reg [6:0] opcode_out
 );
 
     reg [31:0] src_a;
@@ -66,6 +68,7 @@ module ID_EX_reg (
             rs1_out <= 5'b0;
             rs2_out <= 5'b0;
             rd_out <= 5'b0;
+            opcode_out <= 7'b0;
         end else begin
             RegWrite_out <= RegWrite_in;
             ALUSrc_out <= ALUSrc_in;
@@ -84,6 +87,7 @@ module ID_EX_reg (
             rs1_out <= rs1_in;
             rs2_out <= rs2_in;
             rd_out <= rd_in;
+            opcode_out <= opcode_in;
         end
     end
 

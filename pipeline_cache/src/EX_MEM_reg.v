@@ -12,6 +12,7 @@ module EX_MEM_reg (
     input [31:0] WriteData_in, // Data to be written to memory for store
     input [4:0] rd_in,
     input [31:0] PCPlus4_in,
+    input flush,
 
     // Outputs to Memory
     output reg RegWrite_out,
@@ -24,7 +25,7 @@ module EX_MEM_reg (
     output reg [31:0] PCPlus4_out
 );
     always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
+        if (!rst_n || flush) begin
             RegWrite_out <= 1'b0;
             MemWrite_out <= 1'b0;
             ResultSrc_out <= 2'b0;

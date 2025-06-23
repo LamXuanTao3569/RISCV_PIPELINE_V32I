@@ -93,7 +93,7 @@ module Main_Decoder(
                 ResultSrc = 2'b10;
                 Branch = 1'b0;
                 Jump = 1'b1;
-                ImmSrc = 2'b00;
+                ImmSrc = 3'b000;
                 MemOp = 2'b00;  // Không dùng
                 ALUOp = 2'b00;
             end
@@ -104,7 +104,7 @@ module Main_Decoder(
                 ResultSrc = 2'b00;
                 Branch = 1'b0;
                 Jump = 1'b0;
-                ImmSrc = 2'b00;
+                ImmSrc = 3'b100;
                 MemOp = 2'b00;  // Không dùng
                 ALUOp = 2'b11;
             end
@@ -115,7 +115,7 @@ module Main_Decoder(
                 ResultSrc = 2'b00;
                 Branch = 1'b0;
                 Jump = 1'b0;
-                ImmSrc = 2'b00;
+                ImmSrc = 3'b100;
                 MemOp = 2'b00;  // Không dùng
                 ALUOp = 2'b11;
             end
