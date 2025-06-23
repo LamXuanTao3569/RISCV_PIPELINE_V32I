@@ -3,6 +3,9 @@ module fetch(
     input pc_write_en,
     input pc_src, // mux select for PC from EX stage (for branches/jumps)
     input [31:0] pc_target, // branch/jump target from EX stage
+    input predictor_update,
+    input [5:0] predictor_update_index,
+    input predictor_outcome,
     input [31:0] if_instr, // Instruction from top module
 
     output [31:0] pc_out,
@@ -27,9 +30,24 @@ module fetch(
     assign pc_out = pc_reg;
     assign pc_plus4_out = pc_plus4;
 
-    // PC selection logic - disable branch prediction for now
+    // Branch Predictor (1-bit, 64-entry, indexed by PC[7:2])
+    reg predictor_table [0:63];
+    wire [5:0] predictor_index = pc_reg[7:2];
+    integer i;
+
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            for (i = 0; i < 64; i = i + 1) predictor_table[i] <= 0;
+        end else if (predictor_update) begin
+            predictor_table[predictor_update_index] <= predictor_outcome;
+        end
+    end
+
+    wire branch_pred = predictor_table[predictor_index];
+    assign branch_predict_out = branch_pred;
+
+    // PC selection logic with branch prediction
     wire is_branch = (if_instr[6:0] == 7'b1100011); // B-type opcode
-    assign pc_next = (pc_src) ? pc_target : pc_plus4;
-    assign branch_predict_out = 1'b0;
+    assign pc_next = (pc_src) ? pc_target : (is_branch && branch_pred ? pc_target : pc_plus4);
 
 endmodule 

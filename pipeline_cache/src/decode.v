@@ -62,6 +62,7 @@ module decode(
         .ALUOp(alu_op),
         .funct3(instr_in[14:12]),
         .funct7_5(funct7_5),
+        .funct7(funct7),
         .ALUControl(pre_ALUControl)
     );
 

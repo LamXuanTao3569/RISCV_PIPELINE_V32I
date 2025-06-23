@@ -2,6 +2,7 @@ module Data_Memory(
     input clk, rst_n, WE,
     input [1:0] MemOp,
     input [31:0] A, WD,
+    input [2:0] funct3,
     output reg [31:0] RD
 );
     reg [31:0] memory [0:1023];
@@ -57,12 +58,21 @@ module Data_Memory(
                 end
                 2'b10: RD = memory[A >> 2]; // lw
                 2'b11: begin // lbu/lhu
-                    case (A[1:0])
-                        2'b00: RD = {24'b0, memory[A >> 2][7:0]};
-                        2'b01: RD = {24'b0, memory[A >> 2][15:8]};
-                        2'b10: RD = {24'b0, memory[A >> 2][23:16]};
-                        2'b11: RD = {24'b0, memory[A >> 2][31:24]};
-                    endcase
+                    if (funct3 == 3'b100) begin // lbu
+                        case (A[1:0])
+                            2'b00: RD = {24'b0, memory[A >> 2][7:0]};
+                            2'b01: RD = {24'b0, memory[A >> 2][15:8]};
+                            2'b10: RD = {24'b0, memory[A >> 2][23:16]};
+                            2'b11: RD = {24'b0, memory[A >> 2][31:24]};
+                        endcase
+                    end else if (funct3 == 3'b101) begin // lhu
+                        case (A[1])
+                            1'b0: RD = {16'b0, memory[A >> 2][15:0]};
+                            1'b1: RD = {16'b0, memory[A >> 2][31:16]};
+                        endcase
+                    end else begin
+                        RD = 32'hx; // undefined
+                    end
                 end
                 default: RD = memory[A >> 2];
             endcase

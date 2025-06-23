@@ -158,6 +158,7 @@ module RISCV_Single_Cycle (
         .MemOp(ex_mem_mem_op),
         .A(ex_mem_alu_result),
         .WD(ex_mem_write_data),
+        .funct3(ex_mem_funct3),
         .RD(mem_read_data)
     );
     assign DMEM_inst_memory_0 = DMEM_inst.memory[0];
@@ -175,6 +176,9 @@ module RISCV_Single_Cycle (
         .pc_write_en(pc_write_en),
         .pc_src(exception ? 1'b1 : ex_pc_src),
         .pc_target(exception ? 32'h00000080 : ex_pc_target),
+        .predictor_update(branch_feedback_valid),
+        .predictor_update_index(branch_feedback_pc[7:2]),
+        .predictor_outcome(branch_feedback_taken),
         .if_instr(if_instr),
         .pc_out(if_pc),
         .pc_plus4_out(if_pc_plus4),
