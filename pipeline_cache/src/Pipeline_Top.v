@@ -55,8 +55,8 @@ module RISCV_Single_Cycle (
 
     // Hazard Unit -> Control signals
     wire pc_write_en, if_id_write_en, id_ex_bubble;
-    wire branch_flush = ex_pc_src;
-    wire pipeline_flush = exception;
+    assign pipeline_flush = exception && !startup_suppress;
+    assign branch_flush = ex_pc_src && id_ex_branch && !exception;
     
     // Forwarding Unit -> Forwarding selectors
     wire [1:0] forward_a_ex, forward_b_ex;

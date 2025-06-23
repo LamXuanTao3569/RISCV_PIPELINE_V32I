@@ -1,7 +1,6 @@
 module Forwarding_Unit(
     input EX_MEM_RegWrite,
     input MEM_WB_RegWrite,
-    input ID_EX_MemWrite,
     input [4:0] ID_EX_rs1,
     input [4:0] ID_EX_rs2,
     input [4:0] EX_MEM_rd,

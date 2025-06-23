@@ -3,9 +3,6 @@ module fetch(
     input pc_write_en,
     input pc_src, // mux select for PC from EX stage (for branches/jumps)
     input [31:0] pc_target, // branch/jump target from EX stage
-    input predictor_update,
-    input [5:0] predictor_update_index,
-    input predictor_outcome,
     input [31:0] if_instr, // Instruction from top module
 
     output [31:0] pc_out,

@@ -1,5 +1,4 @@
 module execute(
-    input clk, rst_n,
     // from ID/EX reg
     input RegWrite_in, ALUSrc_in, MemWrite_in, Branch_in, Jump_in,
     input [1:0] ResultSrc_in,

@@ -9,7 +9,7 @@ module Data_Memory(
 
     initial begin
         for (i = 0; i < 1024; i = i + 1)
-            memory[i] = 32'h0;
+            memory[i] = 32'hDEADBEEF;
         $readmemh("mem/dmem_init.hex", memory);
     end
 
