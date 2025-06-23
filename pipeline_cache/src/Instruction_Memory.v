@@ -8,7 +8,7 @@ module Instruction_Memory(
     integer i;
     initial begin
         for (i = 0; i < 1024; i = i + 1) begin
-            memory[i] = 32'b0;
+            memory[i] = 32'h00000013; // NOP
         end
         $readmemh("mem/imem2.hex", memory);
     end

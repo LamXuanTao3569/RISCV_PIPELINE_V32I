@@ -55,7 +55,8 @@ module RISCV_Single_Cycle (
 
     // Hazard Unit -> Control signals
     wire pc_write_en, if_id_write_en, id_ex_bubble;
-    wire pipeline_flush = exception | branch_flush; // Combined flush signal
+    wire branch_flush = ex_pc_src;
+    wire pipeline_flush = exception;
     
     // Forwarding Unit -> Forwarding selectors
     wire [1:0] forward_a_ex, forward_b_ex;
@@ -130,9 +131,6 @@ module RISCV_Single_Cycle (
     wire [31:0] branch_feedback_pc;
     wire branch_feedback_taken;
 
-    // Flush for taken branches
-    wire branch_flush = ex_pc_src;
-
     // Suppress exception for one cycle at startup to ignore initial garbage
     reg [1:0] startup_suppress_cnt;
     wire startup_suppress = (startup_suppress_cnt != 2'b00);
@@ -189,7 +187,7 @@ module RISCV_Single_Cycle (
     IF_ID_reg if_id_reg (
         .clk(clk), .rst_n(rst_n),
         .if_id_write(if_id_write_en),
-        .if_id_flush(pipeline_flush),
+        .if_id_flush(branch_flush),
         .pc_in(if_pc),
         .instr_in(if_instr),
         .pc_plus4_in(if_pc_plus4),

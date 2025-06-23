@@ -16,14 +16,12 @@ module Hazard_Detection_Unit(
 
     wire load_use_hazard = (ID_EX_ResultSrc == 2'b01) && ID_EX_RegWrite && (ID_EX_rd != 5'b0) &&
                            ((ID_EX_rd == IF_ID_rs1) || (ID_EX_rd == IF_ID_rs2));
-    wire jump_use_hazard = (ID_EX_ResultSrc == 2'b10) && ID_EX_RegWrite && (ID_EX_rd != 5'b0) &&
-                           ((ID_EX_rd == IF_ID_rs1) || (ID_EX_rd == IF_ID_rs2));
 
     always @(*) begin
         PCWrite = 1'b1;
         IF_ID_Write = 1'b1;
         ID_EX_Bubble = 1'b0;
-        if (load_use_hazard || jump_use_hazard) begin
+        if (load_use_hazard) begin
             PCWrite = 1'b0;
             IF_ID_Write = 1'b0;
             ID_EX_Bubble = 1'b1;
