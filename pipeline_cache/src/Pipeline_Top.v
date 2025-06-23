@@ -293,7 +293,6 @@ module RISCV_Single_Cycle (
 
     // WRITEBACK STAGE
     writeback writeback_stage (
-        .clk(clk), .rst_n(rst_n),
         .RegWrite_in(mem_wb_reg_write), .ResultSrc_in(mem_wb_result_src),
         .ReadData_in(mem_wb_read_data), .ALU_Result_in(mem_wb_alu_result),
         .rd_in(mem_wb_rd), .PCPlus4_in(mem_wb_pc_plus4),
