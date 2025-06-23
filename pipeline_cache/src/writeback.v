@@ -15,18 +15,24 @@ module writeback(
     output reg RegWrite_wb,
     output reg [4:0] rd_wb
 );
+
+    // Simple combinational logic for result selection
     always @(*) begin
-        case (ResultSrc_in)
-            2'b00: result_wb = ALU_Result_in;
-            2'b01: result_wb = ReadData_in;
-            2'b10: result_wb = PCPlus4_in; // For JAL
-            default: result_wb = ALU_Result_in; // Should not happen
-        endcase
+        if (ResultSrc_in == 2'b00) begin
+            result_wb = ALU_Result_in;
+        end else if (ResultSrc_in == 2'b01) begin
+            result_wb = ReadData_in;
+        end else if (ResultSrc_in == 2'b10) begin
+            result_wb = PCPlus4_in;
+        end else begin
+            result_wb = ALU_Result_in;
+        end
     end
 
-    // Pass through control signal and destination register
+    // Pass through control signals
     always @(*) begin
         RegWrite_wb = RegWrite_in;
         rd_wb = rd_in;
     end
+
 endmodule 
