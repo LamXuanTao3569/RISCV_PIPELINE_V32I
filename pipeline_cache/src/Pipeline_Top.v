@@ -298,8 +298,8 @@ module RISCV_Single_Cycle (
     //----------------------------------------------------------------
 
     Hazard_Detection_Unit hazard_unit (
-        .ID_EX_MemRead(id_ex_result_src == 2'b01), // Load instruction
-        .BranchTaken(ex_pc_src),
+        .ID_EX_RegWrite(id_ex_reg_write),
+        .ID_EX_ResultSrc(id_ex_result_src),
         .ID_EX_rd(id_ex_rd),
         .IF_ID_rs1(id_rs1),
         .IF_ID_rs2(id_rs2),

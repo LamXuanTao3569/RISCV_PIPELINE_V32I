@@ -58,7 +58,7 @@ module execute(
         endcase
     end
     
-    assign WriteData_out = forwarded_rd2;
+    assign WriteData_out = MemWrite_in ? forwarded_rd2 : 32'h0;
 
     // Mux for ALU operand B (RD2 or immediate)
     assign src_b = ALUSrc_in ? Imm_Ext_in : forwarded_rd2;
