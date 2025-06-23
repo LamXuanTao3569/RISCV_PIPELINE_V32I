@@ -1,4 +1,5 @@
 module writeback(
+    input clk, rst_n,
     // from MEM/WB reg
     input RegWrite_in,
     input [1:0] ResultSrc_in,
