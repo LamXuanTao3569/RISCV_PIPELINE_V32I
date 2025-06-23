@@ -154,7 +154,7 @@ module RISCV_Single_Cycle (
 
     Data_Memory DMEM_inst (
         .clk(clk),
-        .rst(rst_n),
+        .rst_n(rst_n),
         .WE(ex_mem_mem_write),
         .MemOp(ex_mem_mem_op),
         .A(ex_mem_alu_result),
