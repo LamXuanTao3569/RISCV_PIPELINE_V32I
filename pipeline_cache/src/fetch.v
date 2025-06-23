@@ -30,32 +30,8 @@ module fetch(
     assign pc_out = pc_reg;
     assign pc_plus4_out = pc_plus4;
 
-    // Branch Predictor (1-bit, 64-entry, indexed by PC[7:2])
-    reg predictor_table [0:63];
-    reg [31:0] predictor_correct, predictor_total;
-    wire [5:0] predictor_index = pc_reg[7:2];
-    integer i;
-
-    // Predictor update logic (to be triggered by execute stage feedback)
-    always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            for (i = 0; i < 64; i = i + 1) predictor_table[i] <= 0;
-            predictor_correct <= 0;
-            predictor_total <= 0;
-        end else if (predictor_update) begin
-            predictor_table[predictor_update_index] <= predictor_outcome;
-            predictor_total <= predictor_total + 1;
-            if (predictor_table[predictor_update_index] == predictor_outcome)
-                predictor_correct <= predictor_correct + 1;
-        end
-    end
-
-    // Branch prediction output
-    wire branch_pred = predictor_table[predictor_index];
-    assign branch_predict_out = branch_pred;
-
-    // PC selection logic
+    // PC selection logic - disable branch prediction for now
     wire is_branch = (if_instr[6:0] == 7'b1100011); // B-type opcode
-    assign pc_next = (pc_src) ? pc_target : (is_branch && branch_pred ? pc_target : pc_plus4);
+    assign pc_next = (pc_src) ? pc_target : pc_plus4;
 
 endmodule 

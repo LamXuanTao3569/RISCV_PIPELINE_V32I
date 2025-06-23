@@ -27,6 +27,7 @@ module Hazard_Detection_Unit(
 
         if (BranchTaken) begin
             IF_ID_Flush = 1;
+            IF_ID_Write = 0;
         end
     end
 

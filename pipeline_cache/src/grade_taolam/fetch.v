@@ -34,11 +34,11 @@ module fetch(
     reg predictor_table [0:63];
     reg [31:0] predictor_correct, predictor_total;
     wire [5:0] predictor_index = pc_reg[7:2];
+    integer i;
 
     // Predictor update logic (to be triggered by execute stage feedback)
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            integer i;
             for (i = 0; i < 64; i = i + 1) predictor_table[i] <= 0;
             predictor_correct <= 0;
             predictor_total <= 0;

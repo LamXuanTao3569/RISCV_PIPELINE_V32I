@@ -1,5 +1,5 @@
 $date
-	Mon Jun 23 00:07:21 2025
+	Mon Jun 23 00:11:46 2025
 $end
 $version
 	Icarus Verilog
@@ -308,9 +308,7 @@ $var wire 1 A# is_branch $end
 $var reg 32 B# pc_reg [31:0] $end
 $var reg 32 C# predictor_correct [31:0] $end
 $var reg 32 D# predictor_total [31:0] $end
-$scope begin $unm_blk_69 $end
 $var integer 32 E# i [31:0] $end
-$upscope $end
 $upscope $end
 $scope module forwarding_unit $end
 $var wire 1 ~ EX_MEM_RegWrite $end
@@ -727,8 +725,8 @@ $end
 b1 (
 b100000000 $$
 b100000 #$
-b1000000 E#
 b100000 9"
+b1000000 E#
 1!
 #10000
 0!

@@ -6,9 +6,46 @@ module RISCV_Single_Cycle (
     output [31:0] DataMem0,
     output [31:0] DataMem1,
     output [31:0] DataMem2,
-    output [31:0] Reg_inst_registers [0:31],
-    output [31:0] DMEM_inst_memory [0:1023],
-    output [31:0] IMEM_inst_memory [0:1023],
+    output [31:0] Reg_inst_registers_0,
+    output [31:0] Reg_inst_registers_1,
+    output [31:0] Reg_inst_registers_2,
+    output [31:0] Reg_inst_registers_3,
+    output [31:0] Reg_inst_registers_4,
+    output [31:0] Reg_inst_registers_5,
+    output [31:0] Reg_inst_registers_6,
+    output [31:0] Reg_inst_registers_7,
+    output [31:0] Reg_inst_registers_8,
+    output [31:0] Reg_inst_registers_9,
+    output [31:0] Reg_inst_registers_10,
+    output [31:0] Reg_inst_registers_11,
+    output [31:0] Reg_inst_registers_12,
+    output [31:0] Reg_inst_registers_13,
+    output [31:0] Reg_inst_registers_14,
+    output [31:0] Reg_inst_registers_15,
+    output [31:0] Reg_inst_registers_16,
+    output [31:0] Reg_inst_registers_17,
+    output [31:0] Reg_inst_registers_18,
+    output [31:0] Reg_inst_registers_19,
+    output [31:0] Reg_inst_registers_20,
+    output [31:0] Reg_inst_registers_21,
+    output [31:0] Reg_inst_registers_22,
+    output [31:0] Reg_inst_registers_23,
+    output [31:0] Reg_inst_registers_24,
+    output [31:0] Reg_inst_registers_25,
+    output [31:0] Reg_inst_registers_26,
+    output [31:0] Reg_inst_registers_27,
+    output [31:0] Reg_inst_registers_28,
+    output [31:0] Reg_inst_registers_29,
+    output [31:0] Reg_inst_registers_30,
+    output [31:0] Reg_inst_registers_31,
+    output [31:0] DMEM_inst_memory_0,
+    output [31:0] DMEM_inst_memory_1,
+    output [31:0] DMEM_inst_memory_2,
+    output [31:0] DMEM_inst_memory_3,
+    output [31:0] IMEM_inst_memory_0,
+    output [31:0] IMEM_inst_memory_1,
+    output [31:0] IMEM_inst_memory_2,
+    output [31:0] IMEM_inst_memory_3,
     output [31:0] Instruction_out_top
 );
 
@@ -108,7 +145,10 @@ module RISCV_Single_Cycle (
         .A(if_pc),
         .RD(if_instr)
     );
-    assign IMEM_inst_memory = IMEM_inst.memory;
+    assign IMEM_inst_memory_0 = IMEM_inst.memory[0];
+    assign IMEM_inst_memory_1 = IMEM_inst.memory[1];
+    assign IMEM_inst_memory_2 = IMEM_inst.memory[2];
+    assign IMEM_inst_memory_3 = IMEM_inst.memory[3];
 
     Data_Memory DMEM_inst (
         .clk(clk),
@@ -119,7 +159,10 @@ module RISCV_Single_Cycle (
         .WD(ex_mem_write_data),
         .RD(mem_read_data)
     );
-    assign DMEM_inst_memory = DMEM_inst.memory;
+    assign DMEM_inst_memory_0 = DMEM_inst.memory[0];
+    assign DMEM_inst_memory_1 = DMEM_inst.memory[1];
+    assign DMEM_inst_memory_2 = DMEM_inst.memory[2];
+    assign DMEM_inst_memory_3 = DMEM_inst.memory[3];
 
     //----------------------------------------------------------------
     // Pipeline Stages
@@ -284,6 +327,37 @@ module RISCV_Single_Cycle (
     assign DataMem1 = DMEM_inst.memory[1];
     assign DataMem2 = DMEM_inst.memory[2];
 
-    assign Reg_inst_registers = Reg_inst.registers;
+    assign Reg_inst_registers_0 = Reg_inst.registers[0];
+    assign Reg_inst_registers_1 = Reg_inst.registers[1];
+    assign Reg_inst_registers_2 = Reg_inst.registers[2];
+    assign Reg_inst_registers_3 = Reg_inst.registers[3];
+    assign Reg_inst_registers_4 = Reg_inst.registers[4];
+    assign Reg_inst_registers_5 = Reg_inst.registers[5];
+    assign Reg_inst_registers_6 = Reg_inst.registers[6];
+    assign Reg_inst_registers_7 = Reg_inst.registers[7];
+    assign Reg_inst_registers_8 = Reg_inst.registers[8];
+    assign Reg_inst_registers_9 = Reg_inst.registers[9];
+    assign Reg_inst_registers_10 = Reg_inst.registers[10];
+    assign Reg_inst_registers_11 = Reg_inst.registers[11];
+    assign Reg_inst_registers_12 = Reg_inst.registers[12];
+    assign Reg_inst_registers_13 = Reg_inst.registers[13];
+    assign Reg_inst_registers_14 = Reg_inst.registers[14];
+    assign Reg_inst_registers_15 = Reg_inst.registers[15];
+    assign Reg_inst_registers_16 = Reg_inst.registers[16];
+    assign Reg_inst_registers_17 = Reg_inst.registers[17];
+    assign Reg_inst_registers_18 = Reg_inst.registers[18];
+    assign Reg_inst_registers_19 = Reg_inst.registers[19];
+    assign Reg_inst_registers_20 = Reg_inst.registers[20];
+    assign Reg_inst_registers_21 = Reg_inst.registers[21];
+    assign Reg_inst_registers_22 = Reg_inst.registers[22];
+    assign Reg_inst_registers_23 = Reg_inst.registers[23];
+    assign Reg_inst_registers_24 = Reg_inst.registers[24];
+    assign Reg_inst_registers_25 = Reg_inst.registers[25];
+    assign Reg_inst_registers_26 = Reg_inst.registers[26];
+    assign Reg_inst_registers_27 = Reg_inst.registers[27];
+    assign Reg_inst_registers_28 = Reg_inst.registers[28];
+    assign Reg_inst_registers_29 = Reg_inst.registers[29];
+    assign Reg_inst_registers_30 = Reg_inst.registers[30];
+    assign Reg_inst_registers_31 = Reg_inst.registers[31];
 
 endmodule

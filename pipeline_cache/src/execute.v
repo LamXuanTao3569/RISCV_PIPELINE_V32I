@@ -88,7 +88,9 @@ module execute(
     wire branch_taken = Branch_in & branch_taken_reg;
 
     assign pc_src_out = branch_taken || Jump_in;
-    assign pc_target_out = PC_in + Imm_Ext_in; // for branches and JAL
+    // For JALR, the target is in the ALU result (rs1 + imm). 
+    // For JAL and branches, it's PC + imm.
+    assign pc_target_out = (Jump_in && ALUSrc_in) ? alu_result : (PC_in + Imm_Ext_in);
     assign branch_feedback_valid = Branch_in;
     assign branch_feedback_pc = PC_in;
     assign branch_feedback_taken = branch_taken;

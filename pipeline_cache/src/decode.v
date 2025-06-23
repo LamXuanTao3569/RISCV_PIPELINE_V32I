@@ -33,13 +33,12 @@ module decode(
     wire [6:0] funct7 = instr_in[31:25];
     wire funct7_5 = instr_in[30];
     wire [6:0] opcode = instr_in[6:0];
+    wire [1:0] alu_op;
     reg exception_reg;
 
-    Control_Unit_Top control_unit (
+    Main_Decoder control_unit (
         .Op(instr_in[6:0]),
         .funct3(instr_in[14:12]),
-        .funct7_5(funct7_5),
-        .funct7(funct7),
         .RegWrite(RegWrite_out),
         .ImmSrc(imm_src),
         .ALUSrc(ALUSrc_out),
@@ -47,8 +46,16 @@ module decode(
         .ResultSrc(ResultSrc_out),
         .Branch(Branch_out),
         .Jump(Jump_out),
-        .ALUControl(ALUControl_out),
+        .ALUOp(alu_op),
         .MemOp(MemOp_out)
+    );
+
+    // ALU Decoder to convert ALUOp to ALUControl
+    ALU_Decoder alu_decoder (
+        .ALUOp(alu_op),
+        .funct3(instr_in[14:12]),
+        .funct7_5(funct7_5),
+        .ALUControl(ALUControl_out)
     );
 
     Sign_Extend sign_extend (

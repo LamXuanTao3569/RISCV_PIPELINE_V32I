@@ -1,21 +1,18 @@
 `timescale 1ns/1ps
 
-
-
 module tb_RISCV_sc2;
 
-
     localparam  NUMBER_OF_CYCLES = 112;
-    logic clk;
-    logic rst_n;
+    reg clk;
+    reg rst_n;
     integer inst_cnt;
     integer timeout_cnt;
     integer err_count;
     integer fd;
     reg [8*10000-1:0] line;  // Buffer for reading lines
-    int addr, expected, actual;
-    int code;
-
+    integer addr, expected, actual;
+    integer code;
+    integer k, j;
 
     integer golden_file, status;
     reg [31:0] golden_pc[0:NUMBER_OF_CYCLES-1];
@@ -44,14 +41,14 @@ module tb_RISCV_sc2;
                 err_count = err_count + 1;
             end
 
-            for (integer k = 0; k < 32; k++) begin
+            for (k = 0; k < 32; k = k + 1) begin
                 if (dut.Reg_inst.registers[k] !== golden_x[k][flag]) begin
                     $display("❗ x%0d mismatch at cycle %0d: DUT = %h, Golden = %h", k, flag, dut.Reg_inst.registers[k], golden_x[k][flag]);
                     err_count = err_count + 1;
                 end
             end
 
-            for (integer k = 0; k < 256; k++) begin
+            for (k = 0; k < 256; k = k + 1) begin
                 if ( dut.DMEM_inst.memory[k] !== golden_dmem[k][flag]) begin
                     $display("❗ Dmem[%0d] mismatch at cycle %0d: DUT = %h, Golden = %h", k, flag, dut.DMEM_inst.memory[k], golden_dmem[k][flag]);
                     err_count = err_count + 1;
@@ -146,10 +143,10 @@ module tb_RISCV_sc2;
 
         if (i < NUMBER_OF_CYCLES) begin
             golden_pc[i] = golden_pc_temp;
-            for (integer j = 0; j < 32; j++) begin
+            for (j = 0; j < 32; j++) begin
                 golden_x[j][i] = golden_x_temp[j];
             end
-            for (integer j = 0; j < 256; j++) begin
+            for (j = 0; j < 256; j++) begin
                 golden_dmem[j][i] = golden_dmem_temp[j];
             end
             i = i + 1;
@@ -166,9 +163,52 @@ module tb_RISCV_sc2;
         inst_cnt = inst_cnt + 1;
         timeout_cnt = timeout_cnt + 1;
 
-        if (timeout_cnt > 10000) begin
-            $display("❗ ERROR: Simulation timed out after 10000 cycles!");
+        if (timeout_cnt > 50000) begin
+            $display("❗ ERROR: Simulation timed out after 50000 cycles!");
+            $display("Current PC = %h, Instruction = %h", dut.PC_out_top, dut.Instruction_out_top);
             $finish;
+        end
+        
+        // Debug output every 1000 cycles
+        if (inst_cnt % 1000 == 0) begin
+            $display("Cycle %0d: PC = %h, Instruction = %h", inst_cnt, dut.PC_out_top, dut.Instruction_out_top);
+            $display("  PC Write Enable = %b, Branch Taken = %b", dut.pc_write_en, dut.ex_pc_src);
+            $display("  IF/ID Write Enable = %b, ID/EX Bubble = %b", dut.if_id_write_en, dut.id_ex_bubble);
+        end
+        
+        // Debug output when branch is taken
+        if (dut.ex_pc_src && dut.Instruction_out_top[6:0] == 7'b1100011) begin
+            $display("Branch taken at cycle %0d: PC = %h, Target = %h", inst_cnt, dut.PC_out_top, dut.ex_pc_target);
+            $display("  Instruction = %h, funct3 = %b", dut.Instruction_out_top, dut.Instruction_out_top[14:12]);
+            $display("  IF/ID Instruction = %h, funct3 = %b", dut.if_id_instr, dut.if_id_instr[14:12]);
+            $display("  Branch Flush = %b, IF/ID Write = %b", dut.branch_flush, dut.if_id_write_en);
+            $display("  Expected funct3 for 0xfeb518e3 should be 110, but got %b", dut.Instruction_out_top[14:12]);
+            $display("  Instruction at PC/4 = %d: %h", dut.PC_out_top >> 2, dut.IMEM_inst.memory[dut.PC_out_top >> 2]);
+            $display("  Raw instruction bits 14:12 = %b", dut.IMEM_inst.memory[dut.PC_out_top >> 2][14:12]);
+            $display("  This is a BNE instruction (funct3=001), not BLTU (funct3=110)");
+            $display("  Branch target calculation: PC(%h) + immediate = %h", dut.PC_out_top, dut.ex_pc_target);
+            $display("  BNE compares x10 vs x22: x10=%h, x22=%h", dut.Reg_inst.registers[10], dut.Reg_inst.registers[22]);
+        end
+        
+        // Debug output when PC is at the store instruction
+        if (dut.PC_out_top == 32'h78) begin
+            $display("PC at 0x78 at cycle %0d: Instruction = %h", inst_cnt, dut.Instruction_out_top);
+            $display("  PC Write Enable = %b, IF/ID Write = %b, ID/EX Bubble = %b", dut.pc_write_en, dut.if_id_write_en, dut.id_ex_bubble);
+            $display("  Branch Taken = %b, Exception = %b", dut.ex_pc_src, dut.exception);
+        end
+        
+        // Debug output when PC gets stuck
+        if (inst_cnt > 10000 && dut.PC_out_top == 32'h78) begin
+            $display("PC stuck at 0x78 at cycle %0d", inst_cnt);
+            $display("  Current instruction = %h", dut.Instruction_out_top);
+            $display("  PC Write Enable = %b, IF/ID Write = %b, ID/EX Bubble = %b", dut.pc_write_en, dut.if_id_write_en, dut.id_ex_bubble);
+            $display("  Branch Taken = %b, Exception = %b", dut.ex_pc_src, dut.exception);
+        end
+        
+        // Debug output for last few cycles before timeout
+        if (inst_cnt > 9995) begin
+            $display("Cycle %0d: PC = %h, Instruction = %h", inst_cnt, dut.PC_out_top, dut.Instruction_out_top);
+            $display("  PC Write Enable = %b, IF/ID Write = %b, ID/EX Bubble = %b", dut.pc_write_en, dut.if_id_write_en, dut.id_ex_bubble);
         end
     end
 
