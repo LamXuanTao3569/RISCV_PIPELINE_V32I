@@ -12,7 +12,7 @@ module IF_ID_reg (
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             pc_out <= 32'b0;
-            instr_out <= 32'b0; // NOP (illegal instruction)
+            instr_out <= 32'h00000013; // NOP (legal instruction)
             pc_plus4_out <= 32'b0;
         end else if (if_id_flush) begin
             pc_out <= 32'b0;

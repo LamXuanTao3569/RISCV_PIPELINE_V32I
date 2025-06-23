@@ -12,21 +12,21 @@ module Forwarding_Unit(
 
     always @(*) begin
         // ForwardA Logic - prioritize EX/MEM hazard
-        ForwardA = 2'b00; // Default
-        if (MEM_WB_RegWrite && MEM_WB_rd != 0 && MEM_WB_rd == ID_EX_rs1) begin
-            ForwardA = 2'b10;
-        end
         if (EX_MEM_RegWrite && EX_MEM_rd != 0 && EX_MEM_rd == ID_EX_rs1) begin
-            ForwardA = 2'b01;
+            ForwardA = 2'b01; // Forward from EX/MEM
+        end else if (MEM_WB_RegWrite && MEM_WB_rd != 0 && MEM_WB_rd == ID_EX_rs1) begin
+            ForwardA = 2'b10; // Forward from MEM/WB
+        end else begin
+            ForwardA = 2'b00; // No forwarding
         end
 
         // ForwardB Logic - prioritize EX/MEM hazard
-        ForwardB = 2'b00; // Default
-        if (MEM_WB_RegWrite && MEM_WB_rd != 0 && MEM_WB_rd == ID_EX_rs2) begin
-           ForwardB = 2'b10;
-        end
         if (EX_MEM_RegWrite && EX_MEM_rd != 0 && EX_MEM_rd == ID_EX_rs2) begin
-            ForwardB = 2'b01;
+            ForwardB = 2'b01; // Forward from EX/MEM
+        end else if (MEM_WB_RegWrite && MEM_WB_rd != 0 && MEM_WB_rd == ID_EX_rs2) begin
+            ForwardB = 2'b10; // Forward from MEM/WB
+        end else begin
+            ForwardB = 2'b00; // No forwarding
         end
     end
 

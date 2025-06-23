@@ -46,9 +46,6 @@ module ID_EX_reg (
     output reg [6:0] opcode_out
 );
 
-    reg [31:0] src_a;
-    wire [31:0] src_b, alu_result;
-
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n || flush || bubble) begin
             RegWrite_out <= 1'b0;

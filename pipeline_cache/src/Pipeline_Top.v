@@ -134,10 +134,11 @@ module RISCV_Single_Cycle (
     wire branch_flush = ex_pc_src;
 
     // Suppress exception for one cycle at startup to ignore initial garbage
-    reg startup_suppress;
+    reg [1:0] startup_suppress_cnt;
+    wire startup_suppress = (startup_suppress_cnt != 2'b00);
     always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) startup_suppress <= 1'b1;
-        else startup_suppress <= 1'b0;
+        if (!rst_n) startup_suppress_cnt <= 2'b10;
+        else if (startup_suppress_cnt != 2'b00) startup_suppress_cnt <= startup_suppress_cnt - 1'b1;
     end
 
     //----------------------------------------------------------------
