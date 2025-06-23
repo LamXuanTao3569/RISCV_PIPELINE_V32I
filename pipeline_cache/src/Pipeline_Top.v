@@ -178,10 +178,7 @@ module RISCV_Single_Cycle (
         .if_instr(if_instr),
         .pc_out(if_pc),
         .pc_plus4_out(if_pc_plus4),
-        .branch_predict_out(fetch_branch_predict),
-        .predictor_update(branch_feedback_valid),
-        .predictor_update_index(branch_feedback_pc[7:2]),
-        .predictor_outcome(branch_feedback_taken)
+        .branch_predict_out(fetch_branch_predict)
     );
 
     IF_ID_reg if_id_reg (
@@ -317,7 +314,6 @@ module RISCV_Single_Cycle (
     Forwarding_Unit forwarding_unit (
         .EX_MEM_RegWrite(ex_mem_reg_write),
         .MEM_WB_RegWrite(mem_wb_reg_write),
-        .ID_EX_MemWrite(id_ex_mem_write),
         .ID_EX_rs1(id_ex_rs1),
         .ID_EX_rs2(id_ex_rs2),
         .EX_MEM_rd(ex_mem_rd),
