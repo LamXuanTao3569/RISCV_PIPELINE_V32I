@@ -1,3 +1,0 @@
-BEGIN 1:regfile:fast:work
-    regs :  1:tb_riscv_single_cycle:fast:work
-END 
