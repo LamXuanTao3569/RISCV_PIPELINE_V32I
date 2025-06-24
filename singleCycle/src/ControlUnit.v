@@ -12,15 +12,11 @@ module ControlUnit(
     output logic memRW,
     output logic brUn
 );
-    // Decode fields
-    logic [6:0] opcode;
-    logic [2:0] funct3;
-    logic [6:0] funct7;
-    assign opcode = instr[6:0];
-    assign funct3 = instr[14:12];
-    assign funct7 = instr[31:25];
+    wire [6:0] opcode = instr[6:0];
+    wire [2:0] funct3 = instr[14:12];
+    wire [6:0] funct7 = instr[31:25];
 
-    always_comb begin
+    always @* begin
         // Default values
         pcSel   = 0;
         regWEn  = 0;
