@@ -13,6 +13,7 @@ module EX_MEM_reg (
     input [4:0] rd_in,
     input [31:0] PCPlus4_in,
     input flush,
+    input [2:0] funct3_in,
 
     // Outputs to Memory
     output reg RegWrite_out,
@@ -22,7 +23,8 @@ module EX_MEM_reg (
     output reg [31:0] ALU_Result_out,
     output reg [31:0] WriteData_out,
     output reg [4:0] rd_out,
-    output reg [31:0] PCPlus4_out
+    output reg [31:0] PCPlus4_out,
+    output reg [2:0] funct3_out
 );
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n || flush) begin
@@ -34,6 +36,7 @@ module EX_MEM_reg (
             WriteData_out <= 32'b0;
             rd_out <= 5'b0;
             PCPlus4_out <= 32'b0;
+            funct3_out <= 3'b0;
         end else begin
             RegWrite_out <= RegWrite_in;
             MemWrite_out <= MemWrite_in;
@@ -43,6 +46,7 @@ module EX_MEM_reg (
             WriteData_out <= WriteData_in;
             rd_out <= rd_in;
             PCPlus4_out <= PCPlus4_in;
+            funct3_out <= funct3_in;
         end
     end
 endmodule 
