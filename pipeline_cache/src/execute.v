@@ -20,6 +20,7 @@ module execute(
     output reg RegWrite_out, MemWrite_out,
     output reg [1:0] ResultSrc_out,
     output reg [1:0] MemOp_out,
+    output reg [2:0] funct3_out,
     output reg [4:0] rd_out,
     output reg [31:0] PCPlus4_out, 
     output [31:0] WriteData_out,
@@ -105,6 +106,7 @@ module execute(
         rd_out = rd_in;
         PCPlus4_out = PCPlus4_in;
         alu_result_out = alu_result;
+        funct3_out = funct3_in;
     end
 
 endmodule 

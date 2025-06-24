@@ -4,9 +4,11 @@ module Main_Decoder(
     output reg RegWrite, ALUSrc, MemWrite, Branch, Jump,
     output reg [1:0] ResultSrc, MemOp, 
     output reg [2:0] ImmSrc, 
-    output reg [1:0] ALUOp
+    output reg [1:0] ALUOp,
+    output reg exception
 );
     always @(*) begin
+        exception = 1'b0;
         case (Op)
             7'b0110011: begin // R-type
                 RegWrite = 1'b1;
@@ -44,7 +46,7 @@ module Main_Decoder(
                     3'b010: MemOp = 2'b10; // lw
                     3'b100: MemOp = 2'b11; // lbu
                     3'b101: MemOp = 2'b11; // lhu
-                    default: MemOp = 2'b10;
+                    default: begin MemOp = 2'b10; exception = 1'b1; end
                 endcase
                 ALUOp = 2'b00;
             end
@@ -60,7 +62,7 @@ module Main_Decoder(
                     3'b000: MemOp = 2'b00; // sb
                     3'b001: MemOp = 2'b01; // sh
                     3'b010: MemOp = 2'b10; // sw
-                    default: MemOp = 2'b10;
+                    default: begin MemOp = 2'b10; exception = 1'b1; end
                 endcase
                 ALUOp = 2'b00;
             end
@@ -140,6 +142,7 @@ module Main_Decoder(
                 ImmSrc = 2'b00;
                 MemOp = 2'b00;
                 ALUOp = 2'b00;
+                exception = 1'b1;
             end
         endcase
     end

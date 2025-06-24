@@ -24,7 +24,7 @@ module writeback(
         end else if (ResultSrc_in == 2'b10) begin
             result_wb = PCPlus4_in;
         end else begin
-            result_wb = ALU_Result_in;
+            result_wb = 32'hx;
         end
     end
 

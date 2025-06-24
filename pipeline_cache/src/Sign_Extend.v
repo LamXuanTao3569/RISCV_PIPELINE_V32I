@@ -18,5 +18,5 @@ module Sign_Extend (
                      (ImmSrc == 3'b010) ? {{20{In[31]}}, In[31], In[7], In[30:25], In[11:8], 1'b0} : // B-type
                      (ImmSrc == 3'b011) ? {{12{In[31]}}, In[31], In[19:12], In[20], In[30:21], 1'b0} : // J-type
                      (ImmSrc == 3'b100) ? {In[31:12], 12'b0} : // U-type
-                     32'h00000000;
+                     32'hx;
 endmodule

@@ -56,7 +56,7 @@ module RISCV_Single_Cycle (
     // Hazard Unit -> Control signals
     wire pc_write_en, if_id_write_en, id_ex_bubble;
     assign pipeline_flush = exception && !startup_suppress;
-    assign branch_flush = ex_pc_src && id_ex_branch && !exception;
+    assign branch_flush = ex_pc_src && !exception;
     
     // Forwarding Unit -> Forwarding selectors
     wire [1:0] forward_a_ex, forward_b_ex;
@@ -98,10 +98,12 @@ module RISCV_Single_Cycle (
     wire [31:0] ex_alu_result, ex_write_data;
     wire [4:0] ex_rd;
     wire [31:0] ex_pc_plus4;
+    wire [2:0] ex_funct3;
 
     // EX/MEM Register -> Memory Stage
     wire ex_mem_reg_write, ex_mem_mem_write;
     wire [1:0] ex_mem_result_src, ex_mem_mem_op;
+    wire [2:0] ex_mem_funct3;
     wire [31:0] ex_mem_alu_result, ex_mem_write_data;
     wire [4:0] ex_mem_rd;
     wire [31:0] ex_mem_pc_plus4;
@@ -188,7 +190,7 @@ module RISCV_Single_Cycle (
     IF_ID_reg if_id_reg (
         .clk(clk), .rst_n(rst_n),
         .if_id_write(if_id_write_en),
-        .if_id_flush(branch_flush),
+        .if_id_flush(branch_flush || pipeline_flush),
         .pc_in(if_pc),
         .instr_in(if_instr),
         .pc_plus4_in(if_pc_plus4),
@@ -260,6 +262,7 @@ module RISCV_Single_Cycle (
         .RegWrite_out(ex_reg_write), .MemWrite_out(ex_mem_write), .ResultSrc_out(ex_result_src), 
         .MemOp_out(ex_mem_op), .rd_out(ex_rd), .PCPlus4_out(ex_pc_plus4), 
         .WriteData_out(ex_write_data), .alu_result_out(ex_alu_result),
+        .funct3_out(ex_funct3),
         .pc_src_out(ex_pc_src), .pc_target_out(ex_pc_target),
         .branch_feedback_valid(branch_feedback_valid),
         .branch_feedback_pc(branch_feedback_pc),
@@ -271,10 +274,10 @@ module RISCV_Single_Cycle (
         .flush(pipeline_flush),
         .RegWrite_in(ex_reg_write), .MemWrite_in(ex_mem_write), .ResultSrc_in(ex_result_src),
         .MemOp_in(ex_mem_op), .ALU_Result_in(ex_alu_result), .WriteData_in(ex_write_data), 
-        .rd_in(ex_rd), .PCPlus4_in(ex_pc_plus4),
+        .rd_in(ex_rd), .PCPlus4_in(ex_pc_plus4), .funct3_in(ex_funct3),
         .RegWrite_out(ex_mem_reg_write), .MemWrite_out(ex_mem_mem_write), .ResultSrc_out(ex_mem_result_src),
         .MemOp_out(ex_mem_mem_op), .ALU_Result_out(ex_mem_alu_result), .WriteData_out(ex_mem_write_data), 
-        .rd_out(ex_mem_rd), .PCPlus4_out(ex_mem_pc_plus4)
+        .rd_out(ex_mem_rd), .PCPlus4_out(ex_mem_pc_plus4), .funct3_out(ex_mem_funct3)
     );
 
     // MEMORY STAGE

@@ -40,6 +40,8 @@ module Data_Memory(
     always @(*) begin
         if (rst_n == 1'b0)
             RD = 32'h0;
+        else if (A[31:2] >= 1024)
+            RD = 32'h0;
         else begin
             case (MemOp)
                 2'b00: begin // lb
@@ -71,7 +73,7 @@ module Data_Memory(
                             1'b1: RD = {16'b0, memory[A >> 2][31:16]};
                         endcase
                     end else begin
-                        RD = 32'hx; // undefined
+                        RD = 32'h0; // undefined funct3
                     end
                 end
                 default: RD = memory[A >> 2];

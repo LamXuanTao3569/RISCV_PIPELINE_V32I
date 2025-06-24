@@ -14,6 +14,6 @@ module Instruction_Memory(
     end
 
     // Asynchronous read with address check
-    assign RD = (A[31:2] < 1024) ? memory[A[31:2]] : 32'h00000013;
+    assign RD = (A[31:2] < 1024) ? memory[A[31:2]] : 32'hx;
 
 endmodule
