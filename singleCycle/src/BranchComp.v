@@ -8,3 +8,4 @@ module BranchComp(
     assign BrEq = (A == B);
     assign BrLT = BrUn ? (A < B) : ($signed(A) < $signed(B));
 endmodule 
+//taolam
